@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Providers;
+namespace WienWest\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
