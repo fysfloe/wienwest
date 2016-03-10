@@ -14,10 +14,15 @@ class Training extends Game
         'meeting_time',
         'location',
         'title',
-        'description'
+        'description',
+        'user_id',
     ];
 
     public function participants() {
         return $this->hasMany('WienWest\Player');
+    }
+
+    public function replies() {
+        return $this->morphMany('WienWest\Reply', 'repliable');
     }
 }

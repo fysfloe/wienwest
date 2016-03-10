@@ -20,6 +20,7 @@ class CreateTrainingsTable extends Migration
             $table->string('location');
             $table->string('title')->nullable();
             $table->string('description')->nullable();
+            $table->integer('user_id')->unsigned();
             $table->timestamps();
         });
     }

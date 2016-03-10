@@ -1,0 +1,32 @@
+.avatar-cartoons {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.avatar-cartoons .col-md-2 img {
+    width: 100%;
+}
+
+.avatar-cartoons .row {
+    margin-bottom: 30px;
+}
+
+div.avatar:hover {
+    cursor: pointer;
+}
+
+div.avatar.chosen img {
+    box-shadow: 0 0 5px 5px #df1e30;
+}
+
+div.avatar-radios {
+    display: none;
+}
+
+div.big-number {
+    color: #BDBBBB;
+    font-weight: bold;
+    font-size: 6em;
+    text-align: center;
+    line-height: 160%;
+}

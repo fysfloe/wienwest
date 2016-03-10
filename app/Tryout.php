@@ -16,9 +16,14 @@ class Tryout extends Game
         'title',
         'description',
         'lineup',
+        'user_id',
     ];
 
     public function participants() {
         return $this->hasMany('WienWest\Player');
+    }
+
+    public function replies() {
+        return $this->morphMany('WienWest\Reply', 'repliable');
     }
 }

@@ -21,6 +21,7 @@ class CreateTryoutsTable extends Migration
             $table->string('title')->nullable();
             $table->string('description')->nullable();
             $table->string('lineup');
+            $table->integer('user_id')->unsigned();
             $table->timestamps();
         });
     }

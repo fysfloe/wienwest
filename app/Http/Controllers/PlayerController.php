@@ -6,8 +6,29 @@ use Illuminate\Http\Request;
 
 use WienWest\Http\Requests;
 
+use Auth;
+use Redirect;
+use Validator;
+use Illuminate\Support\Facades\Input;
+use WienWest\Player;
+
 class PlayerController extends Controller
 {
+    protected $rules = [
+        'firstname' => 'required',
+        'surname' => 'required',
+        'number' => 'required|integer',
+        'avatar' => 'required',
+    ];
+
+    protected $messages = [
+        'firstname.required' => 'Sag mir deinen Vornamen oder schreib\' wenigstens irgendwas rein!',
+        'surname.required' => 'Sag mir deinen Nachnamen oder schreib\' wenigstens irgendwas rein!',
+        'number.required' => 'Welche Nummer hast oder hättest gern?',
+        'number.integer' => 'Weißt du nicht, was eine Nummer ist?',
+        'avatar.required' => 'Such\' dir ein lustiges Bildchen aus!',
+    ];
+
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +36,13 @@ class PlayerController extends Controller
      */
     public function index()
     {
-        return view('player.index');
+        $user = Auth::user();
+        $player = Player::where('user_id', '=', $user->id)->first();
+        if(!$player) {
+            return Redirect::route('player.create');
+        } else {
+            return view('player.index')->with(['player' => $player]);
+        }
     }
 
     /**
@@ -25,57 +52,13 @@ class PlayerController extends Controller
      */
     public function create()
     {
-        $organizer = User::all()->first();
-
-        $location = new Location(array(
-            'lat' => '237935.2357035',
-            'lng' => '235703750.235703570'
-        ));
-
-        $media = new Media(array(
-            'w' => 800,
-            'h' => 600,
-            'type' => 'image/jpeg',
-        ));
-
-        Game::create(
-            array(
-                'organizer' => $organizer->id,
-                'date_listed' => time(),
-                'date_start' => strtotime('+24h'),
-                'duration' => 90,
-                'locality' => '1140 Wien',
-                'location' => $location->attributesToArray(),
-                'facilities_std' => [
-                    'sh', 'outd', 'gr'
-                ],
-                'facilities_add' => 'foo',
-                'title' => 'se first game',
-                'headline' => 'is a good game',
-                'description' => 'yes',
-                'media' => $media->attributesToArray(),
-                'costs' => [
-                    'total' => 7000,
-                    'currency' => 'EUR',
-                ],
-                'mode' => '7vs7',
-                'players' => [
-                    'min' => 2,
-                    'max' => 10,
-                ],
-                'level' => 'pro',
-                'equipment' => [
-                    'cleats',
-                ],
-                'shirts' => [
-                    'colors' => ['black', 'white'],
-                    'provided' => false,
-                ],
-                'confirmation' => false,
-                'sport' => 'soccer',
-            )
-        );
-        echo 'create';
+        $user = Auth::user();
+        $player = Player::where('user_id', '=', $user->id)->first();
+        if($player) {
+            return Redirect::route('player.edit', $player->id);
+        } else {
+            return view('player.create');
+        }
     }
 
     /**
@@ -86,7 +69,25 @@ class PlayerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = Auth::user();
+
+        $validator = Validator::make(Input::all(), $this->rules, $this->messages);
+
+        if($validator->passes()) {
+            if(Player::where('number', Input::get('number'))->first()) {
+                $validator->getMessageBag()->add('number-exists', 'Die Nummer hat schon jemand anderer!');
+                return Redirect::back()->withErrors($validator)->withInput();
+            } else {
+                $player = Input::all();
+                $player['user_id'] = $user->id;
+
+                Player::create($player);
+
+                return Redirect::route('player.index');
+            }
+        }
+
+        return Redirect::back()->withErrors($validator)->withInput();
     }
 
     /**
@@ -132,10 +133,5 @@ class PlayerController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function addParticipant($id)
-    {
-
     }
 }

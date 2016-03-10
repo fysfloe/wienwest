@@ -10,6 +10,7 @@ class LeagueGame extends Game
 
     protected $fillable = [
         'home',
+        'opponent',
         'date',
         'start_time',
         'meeting_time',
@@ -17,9 +18,14 @@ class LeagueGame extends Game
         'title',
         'description',
         'lineup',
+        'user_id',
     ];
 
     public function participants() {
         return $this->hasMany('WienWest\Player');
+    }
+
+    public function replies() {
+        return $this->morphMany('WienWest\Reply', 'repliable');
     }
 }

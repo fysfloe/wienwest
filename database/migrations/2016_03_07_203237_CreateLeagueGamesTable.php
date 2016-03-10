@@ -14,6 +14,7 @@ class CreateLeagueGamesTable extends Migration
     {
         Schema::create('league_games', function(Blueprint $table) {
             $table->increments('id');
+            $table->string('opponent');
             $table->date('date');
             $table->time('start_time');
             $table->time('meeting_time');
@@ -21,6 +22,7 @@ class CreateLeagueGamesTable extends Migration
             $table->string('title')->nullable();
             $table->string('description')->nullable();
             $table->string('lineup');
+            $table->integer('user_id')->unsigned();
             $table->timestamps();
         });
     }
