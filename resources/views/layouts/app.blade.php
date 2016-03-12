@@ -45,14 +45,14 @@
 
                 <!-- Branding Image -->
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    Laravel
+                    <!-- DSG Wien West --><img src="{{ asset('img/logo.png') }}" alt="Wien West Logo">
                 </a>
             </div>
 
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
-                <ul class="nav navbar-nav">
-                    <li><a href="{{ url('/home') }}">Heim</a></li>
+                <ul class="nav navbar-nav navbar-left">
+                    <li><a href="{{ url('/home') }}"><i class="fa fa-home"></i></a></li>
                     <li><a href="{{ url('/league_games') }}">Meisterschaft</a></li>
                     <li><a href="{{ url('/tryouts') }}">Testspiele</a></li>
                     <li><a href="{{ url('/trainings') }}">Trainings</a></li>
@@ -67,12 +67,22 @@
                         <li><a href="{{ url('/register') }}">Register</a></li>
                     @else
                         <li class="dropdown">
+
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                {{ Auth::user()->name }} <span class="caret"></span>
+                                <div class="username-wrap flex">
+                                    <?php
+                                    if($player = Auth::user()->player()->first()) {
+                                        $avatar = $player->avatar;
+                                    } else {
+                                        $avatar = 'plus';
+                                    }
+                                    ?>
+                                    <div class="circular" style="background-image:url({{ asset('img/cartoons' . '/' . $avatar . '.png') }})"></div> <span class="username">{{ Auth::user()->name }}</span> <span class="caret"></span>
+                                </div>
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href=""{{ url('/player') }}><i class="fa fa-btn fa-user"></i>Profil</li>
+                                <li><a href="{{ url('/myProfile') }}"><i class="fa fa-btn fa-user"></i>Profil</a></li>
                                 <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
                             </ul>
                         </li>
@@ -81,14 +91,32 @@
             </div>
         </div>
     </nav>
-    @if(Session::has('message'))
-        <div class="alert alert-warning">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-            <strong>{{ Session::get('message') }}</strong>
-        </div>
-    @endif
 
-    @yield('content')
+    <img src="{{ asset('img/header_1600x400.jpg') }}" class="header-image" alt="Wien West">
+
+    <div class="container">
+        <div class="row page-title">
+            <h1 class="page-title">{{ $title }}</h1>
+        </div>
+
+        @if(Session::has('message') || Session::has('success'))
+            <div class="container">
+                <div class="alert alert-{{ Session::has('success') ? 'success' : (Session::has('message') ? 'warning' : '') }}">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <strong>{{ Session::has('message') ? Session::get('message') : Session::get('success') }}</strong>
+                </div>
+            </div>
+        @endif
+
+        <div class="row">
+            <div class="col-md-9 main-content">
+                @yield('content')
+            </div>
+            <div class="col-md-3 sidebar">
+                @include('sidebar')
+            </div>
+        </div>
+    </div>
 
     <!-- JavaScripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>

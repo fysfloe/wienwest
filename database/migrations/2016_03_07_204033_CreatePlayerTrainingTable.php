@@ -15,6 +15,7 @@ class CreatePlayerTrainingTable extends Migration
         Schema::create('player_training', function(Blueprint $table) {
             $table->integer('player_id')->unsigned();
             $table->integer('training_id')->unsigned();
+            $table->string('in');
             $table->timestamps();
         });
     }

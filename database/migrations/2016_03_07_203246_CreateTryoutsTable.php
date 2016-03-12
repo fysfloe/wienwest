@@ -14,12 +14,15 @@ class CreateTryoutsTable extends Migration
     {
         Schema::create('tryouts', function(Blueprint $table) {
             $table->increments('id');
+            $table->boolean('home');
+            $table->string('opponent');
             $table->date('date');
             $table->time('start_time');
             $table->time('meeting_time');
             $table->string('location');
             $table->string('title')->nullable();
             $table->string('description')->nullable();
+            $table->string('result')->nullable();
             $table->string('lineup');
             $table->integer('user_id')->unsigned();
             $table->timestamps();

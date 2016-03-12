@@ -17,7 +17,7 @@ class PlayerController extends Controller
     protected $rules = [
         'firstname' => 'required',
         'surname' => 'required',
-        'number' => 'required|integer',
+        'number' => 'required|integer|max:99',
         'avatar' => 'required',
     ];
 
@@ -26,7 +26,33 @@ class PlayerController extends Controller
         'surname.required' => 'Sag mir deinen Nachnamen oder schreib\' wenigstens irgendwas rein!',
         'number.required' => 'Welche Nummer hast oder hättest gern?',
         'number.integer' => 'Weißt du nicht, was eine Nummer ist?',
+        'number.max' => 'Übertreib\'s nicht...',
         'avatar.required' => 'Such\' dir ein lustiges Bildchen aus!',
+    ];
+
+    protected $avatars = [
+        'alonso',
+        'bale',
+        'balotelli',
+        'chicharito',
+        'de_gea',
+        'gerrard',
+        'gomez',
+        'henry',
+        'iniesta',
+        'kaka',
+        'messi',
+        'ramos',
+        'ribery',
+        'ronaldinho',
+        'ronaldo',
+        'rooney',
+        'schweinsteiger',
+        'suarez',
+        'tevez',
+        'van_persie',
+        'villa',
+        'xavi'
     ];
 
     /**
@@ -36,13 +62,9 @@ class PlayerController extends Controller
      */
     public function index()
     {
-        $user = Auth::user();
-        $player = Player::where('user_id', '=', $user->id)->first();
-        if(!$player) {
-            return Redirect::route('player.create');
-        } else {
-            return view('player.index')->with(['player' => $player]);
-        }
+        $players = Player::all();
+
+        return view('players.index')->with('players', $players);
     }
 
     /**
@@ -54,17 +76,17 @@ class PlayerController extends Controller
     {
         $user = Auth::user();
         $player = Player::where('user_id', '=', $user->id)->first();
-        if($player) {
-            return Redirect::route('player.edit', $player->id);
+        if ($player) {
+            return Redirect::route('players.edit', $player->id);
         } else {
-            return view('player.create');
+            return view('players.create')->with('avatars', $this->avatars);
         }
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -73,8 +95,8 @@ class PlayerController extends Controller
 
         $validator = Validator::make(Input::all(), $this->rules, $this->messages);
 
-        if($validator->passes()) {
-            if(Player::where('number', Input::get('number'))->first()) {
+        if ($validator->passes()) {
+            if (Player::where('number', Input::get('number'))->first()) {
                 $validator->getMessageBag()->add('number-exists', 'Die Nummer hat schon jemand anderer!');
                 return Redirect::back()->withErrors($validator)->withInput();
             } else {
@@ -83,7 +105,7 @@ class PlayerController extends Controller
 
                 Player::create($player);
 
-                return Redirect::route('player.index');
+                return Redirect::route('myProfile');
             }
         }
 
@@ -93,45 +115,71 @@ class PlayerController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        //
+        $player = Player::find($id);
+        if (!$player) {
+            return Redirect::back()->with('message', 'Schade. Dieser Spieler existiert wohl nicht...');
+        } else {
+            return view('players.show')->with(['player' => $player]);
+        }
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        //
+        $player = Player::find($id);
+        if (!$player || $id != Auth::user()->player()->first()->id) {
+            return Redirect::back()->with('message', 'Schade. Dieser Spieler existiert wohl nicht...');
+        } else {
+            return view('players.edit')->with(['player' => $player, 'avatars' => $this->avatars]);
+        }
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, $this->rules, $this->messages);
+
+        $player = Player::find($id);
+        $player->update(Input::all());
+
+        return Redirect::route('players.edit', $id)->with('success', 'Spitze! Dein Profil wurde aktualisiert.');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
         //
+    }
+
+    public function myProfile()
+    {
+        $user = Auth::user();
+        $player = $user->player()->first();
+        if (!$player) {
+            return Redirect::route('players.create');
+        } else {
+            return Redirect::route('players.edit', $player->id);
+        }
     }
 }

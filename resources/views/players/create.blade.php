@@ -18,16 +18,14 @@
 							</div>
 						@endif
 
-						{!! Form::model(new WienWest\Player, ['route' => ['player.store'], 'class' => 'form-horizontal', 'files' => true]) !!}
-							 @include('player/partials/_form')
-							 @include('player/partials/_avatars')
+						{!! Form::model(new WienWest\Player, ['route' => ['players.store'], 'class' => 'form-horizontal', 'files' => true]) !!}
+							 @include('players/partials/_form')
+							 @include('players/partials/_avatars')
 							<!-- Submit -->
 							<div class="form-group">
 								<div class="col-md-6 col-md-offset-4">{!! Form::submit('Schick\'s ab!', ['class'=>'btn btn-primary']) !!}</div>
 							</div>
 						 {!! Form::close() !!}
-
-
 
 					</div>
 				</div>

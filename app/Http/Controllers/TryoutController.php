@@ -6,16 +6,16 @@ use Illuminate\Http\Request;
 
 use WienWest\Http\Requests;
 
-use WienWest\Training;
+use WienWest\Tryout;
 use Auth;
 use Illuminate\Support\Facades\Redirect;
 use Validator;
 use Illuminate\Support\Facades\Input;
 
-class TrainingController extends Controller
+class TryoutController extends Controller
 {
     protected $rules = [
-        'recurring_times' => 'required_with:recurring|integer|between:1,15',
+        'opponent' => 'required',
         'date' => 'required',
         'start_time' => 'required',
         'meeting_time' => 'required',
@@ -23,13 +23,11 @@ class TrainingController extends Controller
     ];
 
     protected $messages = [
-        'recurring_times.required_with' => 'Für wie viele Wochen soll\'s angelegt werden?',
-        'recurring_times.integer' => 'Gib\' doch bitte eine ganze Zahl für die Wochen ein, geht das?',
-        'recurring_times.between' => 'Übertreib\'s nicht... Maximal 15 Wochen.',
-        'date.required' => 'Wann trainier\' ma?',
-        'start_time.required' => 'Wann is\'n Trainingsstart?',
+        'opponent.required' => 'Gegen wen spiel\' ma?',
+        'date.required' => 'Wann spiel\' ma?',
+        'start_time.required' => 'Wann is\'n Anpfiff?',
         'meeting_time.required' => 'Wann treff\' ma uns?',
-        'location.required' => 'Wo trainier\' ma?'
+        'location.required' => 'Wo spiel\' ma?'
     ];
 
     /**
@@ -39,27 +37,27 @@ class TrainingController extends Controller
      */
     public function index()
     {
-        $upcoming = Training::where('date', '>=', date('Y-m-d'))->orderBy('date')->get();
-        $past = Training::where('date', '<', date('Y-m-d'))->get();
+        $upcoming = Tryout::where('date', '>=', date('Y-m-d'))->orderBy('date')->get();
+        $past = Tryout::where('date', '<', date('Y-m-d'))->get();
 
         $view_variables = [
             'upcoming' => $upcoming,
             'past' => $past,
-            'title' => 'Trainings',
+            'title' => 'Testspiele',
         ];
 
         if(count($upcoming) > 0) {
-            $next_training = $upcoming[0];
+            $next_opponent = $upcoming[0];
 
-            $date1 = new \DateTime($next_training->date . ' ' . $next_training->start_time);
+            $date1 = new \DateTime($next_opponent->date . ' ' . $next_opponent->start_time);
             $now = new \DateTime();
 
-            $next_training->diff = $date1->diff($now);
+            $next_opponent->diff = $date1->diff($now);
 
-            $view_variables['next_training'] = $next_training;
+            $view_variables['next_opponent'] = $next_opponent;
         }
 
-        return view('trainings.index')->with($view_variables);
+        return view('tryouts.index')->with($view_variables);
     }
 
     /**
@@ -71,9 +69,9 @@ class TrainingController extends Controller
     {
         $user = Auth::user();
         if($user->hasRole('admin')) {
-            return view('trainings.create')->with(['title' => 'Training erstellen']);
+            return view('tryouts.create')->with(['title' => 'Testspiel erstellen']);
         } else {
-            return Redirect::route('trainings.index')->with('message', 'Herst! Das darfst du nicht...');
+            return Redirect::route('tryouts.index')->with('message', 'Herst! Das darfst du nicht...');
         }
     }
 
@@ -90,22 +88,13 @@ class TrainingController extends Controller
         $validator = Validator::make(Input::all(), $this->rules, $this->messages);
 
         if($validator->passes()) {
-            $training = Input::all();
-            $training['user_id'] = $user->id;
-            if(isset($training['recurring'])) {
-                for($i = 1; $i <= $training['recurring_times']; $i++) {
-                    $training_new = $training;
-                    $date = new \DateTime($training['date']);
-                    $date->modify('+'.$i.' week');
-                    $training_new['date'] = $date->format('Y-m-d');
+            $tryout = Input::all();
+            $tryout['user_id'] = $user->id;
+            $tryout['home'] = isset($tryout['home']);
 
-                    Training::create($training_new);
-                }
-            }
+            Tryout::create($tryout);
 
-            Training::create($training);
-
-            return Redirect::route('trainings.index');
+            return Redirect::route('tryouts.index');
         }
 
         return Redirect::back()->withErrors($validator)->withInput();
@@ -119,7 +108,7 @@ class TrainingController extends Controller
      */
     public function show($id)
     {
-        $game = Training::find($id);
+        $game = Tryout::find($id);
         $players_in = $game->ins()->get();
         $players_maybe = $game->maybes()->get();
         $players_out = $game->outs()->get();
@@ -128,21 +117,15 @@ class TrainingController extends Controller
 
         $replies = $game->replies()->get();
 
-        $view_variables = [
+        return view('tryouts.show')->with([
             'game' => $game,
             'reply' => $reply,
             'replies' => $replies,
             'players_in' => $players_in,
             'players_maybe' => $players_maybe,
             'players_out' => $players_out,
-            'title' => 'Training'
-        ];
-
-        if($game->date < date('Y-m-d') && $game->start_time < date('H:i')) {
-            $view_variables['past_game'] = true;
-        }
-
-        return view('trainings.show')->with($view_variables);
+            'title' => 'Testspiel'
+        ]);
     }
 
     /**
@@ -176,10 +159,10 @@ class TrainingController extends Controller
      */
     public function destroy($id)
     {
-        $training = Training::find($id);
-        if($training) {
-            Training::destroy($id);
-            return Redirect::back()->with('message', 'Training gelöscht.');
+        $tryout = Tryout::find($id);
+        if($tryout) {
+            Tryout::destroy($id);
+            return Redirect::back()->with('message', 'Spiel gelöscht.');
         } else {
             return Redirect::back()->with('message', 'Versuch\' nicht, etwas zu löschen, was es nicht gibt!');
         }

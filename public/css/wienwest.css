@@ -1,3 +1,7 @@
+.navbar-brand>img {
+    width: 110px;
+}
+
 .avatar-cartoons {
     width: 80%;
     margin: 0 auto;
@@ -29,4 +33,368 @@ div.big-number {
     font-size: 6em;
     text-align: center;
     line-height: 160%;
+}
+
+.nav .circular {
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    background-size: 100%;
+    margin-right: 10px;
+}
+
+/* players */
+
+div.players .circular {
+    width: 80px;
+    height: 80px;
+    border-radius: 40px;
+    -webkit-border-radius: 40px;
+    -moz-border-radius: 40px;
+    background-size: 100%;
+    margin: 0 auto;
+}
+
+.participants .circular {
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+    -webkit-border-radius: 25px;
+    -moz-border-radius: 25px;
+    background-size: 100%;
+    margin: 0 auto;
+}
+
+div.players .name {
+    font-weight: bold;
+    padding-left: 8px !important;
+}
+
+div.players .big-number,
+.participants .big-number {
+    font-size: 2em;
+}
+
+div.players .col-md-4 .row > div {
+    padding: 0;
+}
+
+div.players .col-md-4 .row {
+    margin: 0;
+}
+
+div.players a > .row,
+.games {
+    padding: 10px 0;
+    border-radius: 5px;
+}
+
+div.players a:hover .row,
+.games a:hover .row,
+.participants a:hover li,
+.trainings a:hover li .col-md-12 {
+    background: #F5F5F5;
+}
+
+div.players a,
+.games a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* league games */
+
+.games,
+.participants {
+    padding: 0;
+    list-style: none;
+}
+
+.games span.date-big {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.games .teams {
+    font-size: 1.3em;
+    padding-left: 30px;
+}
+
+.games .start-time i {
+    margin-right: 3px;
+}
+
+.games .location i {
+    margin-right: 6px;
+}
+
+.games.past-games {
+    opacity: 0.6;
+}
+
+.league-game > .col-md-4 span:not(:first-of-type),
+.tryout > .col-md-4 span:not(:first-of-type),
+.training span:not(:first-of-type) {
+    width: 100%;
+    display: block;
+    padding: 10px 0;
+}
+
+.league-game > .col-md-4 span.border-bottom,
+.tryout > .col-md-4 span.border-bottom,
+.training span.border-bottom {
+    border-bottom: 1px solid;
+}
+
+.league-game.home > .col-md-4 span:not(:first-of-type),
+.tryout.home > .col-md-4 span:not(:first-of-type) {
+    border-color: rgb(134, 197, 165);
+}
+
+.league-game.away > .col-md-4 span:not(:first-of-type),
+.tryout.away > .col-md-4 span:not(:first-of-type) {
+    border-color: rgb(153, 190, 197);
+}
+
+
+.league-game,
+.tryout,
+.training .col-md-12 {
+    border: 2px solid #eee;
+    position: relative;
+}
+
+.league-game > .col-md-4,
+.tryout > .col-md-4 {
+    padding: 10px;
+    color: white;
+}
+
+.league-game.home > .col-md-4,
+.tryout.home > .col-md-4 {
+    background: rgb(107, 169, 137);
+}
+
+.league-game.home,
+.tryout.home {
+    border-color: rgb(107, 169, 137);
+}
+
+.league-game.home:after,
+.tryout.home:after {
+    display: block;
+    content: 'Heim';
+    background: rgb(107, 169, 137);
+    text-align: center;
+    position: absolute;
+    transform-origin: bottom;
+    transform: rotateZ(-90deg);
+    top: 50%;
+    width: 80px;
+    right: -40px;
+    margin-top: -20px;
+    font-weight: bold;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.league-game.away > .col-md-4,
+.tryout.away > .col-md-4 {
+    background: rgb(65, 142, 169);
+}
+
+.league-game.away,
+.tryout.away {
+    border-color: rgb(65, 142, 169);
+}
+
+.league-game.away:after,
+.tryout.away:after {
+    display: block;
+    content: 'Auswärts';
+    background: rgb(65, 142, 169);
+    text-align: center;
+    position: absolute;
+    transform-origin: bottom;
+    transform: rotateZ(-90deg);
+    top: 50%;
+    width: 120px;
+    right: -60px;
+    margin-top: -20px;
+    font-weight: bold;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.training .col-md-12 {
+    padding: 15px;
+}
+
+.training {
+    padding: 5px;
+}
+
+.participants > .row {
+    margin: 0;
+}
+
+.participants li {
+    padding: 5px;
+    border: 1px solid #f1f1f1;
+    border-bottom: 3px solid;
+    margin-bottom: 10px;
+}
+
+.players-in .participants li {
+    border-bottom-color: #4cae4c;
+}
+
+.players-maybe .participants li {
+    border-bottom-color: #eea236;
+}
+
+.players-out .participants li {
+    border-bottom-color: #d43f3a;
+}
+
+.participants li .row > div {
+    padding: 0;
+}
+
+/* reply */
+input[name="in"] {
+    display: none;
+}
+
+.in.selected {
+    color: #fff;
+    background-color: #5cb85c;
+    border-color: #4cae4c;
+}
+
+.maybe.selected {
+    color: #fff;
+    background-color: #f0ad4e;
+    border-color: #eea236;
+}
+
+.out.selected {
+    color: #fff;
+    background-color: #d9534f;
+    border-color: #d43f3a;
+}
+
+label[for="content"] {
+    padding-bottom: 5px;
+    margin-top: 10px;
+}
+
+textarea#content {
+    margin-bottom: 10px;
+}
+
+/* general */
+
+.vs {
+    color: #d34657;
+    font-size: 1.8em;
+    margin: 0 10px;
+}
+
+.flex {
+    display: flex;
+    align-items: center;
+    /*justify-content: center;*/
+}
+
+h4 {
+    font-weight: bold;
+    font-size: 1.1em;
+    color: darkgray;
+}
+
+.main-content .row,
+.sidebar .row {
+    margin: 0;
+}
+
+.header-image {
+    max-width: 100%;
+    margin-bottom: 20px;
+}
+
+nav.navbar.navbar-default {
+    margin-bottom: 0;
+    background: white;
+}
+
+h1.page-title {
+    position: absolute;
+    top: -115px;
+    left: 0;
+    color: white;
+    width: 100%;
+    padding: 10px 15px;
+    text-shadow: 0px 0px 15px #484848;
+}
+
+.row.page-title {
+    position: relative;
+    margin: 0;
+}
+
+body > .container > .row {
+    margin: 0;
+}
+
+/* sidebar */
+
+.sidebar h3 {
+    display: block;
+    background: #f1f1f1;
+    width: 100%;
+    margin: 0;
+    padding: 15px;
+    font-size: 1em;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #848484;
+    letter-spacing: 2px;
+}
+
+.sidebar > div {
+    padding: 15px;
+}
+
+.sidebar {
+    border: 1px dotted #969696;
+    height: 100%;
+    padding: 0;
+}
+
+.time-to-next-game {
+    text-align: center;
+}
+
+.timer .col-md-4 {
+    font-size: 2.5em;
+    font-weight: bold;
+    color: #d34657;
+}
+
+.timer .col-md-4 .caption {
+    display: block;
+    font-size: 0.4em;
+    font-weight: normal;
+    color: black;
+}
+
+@media screen and (min-width: 768px) {
+    .navbar-brand, .navbar-left {
+        margin-top: 10px;
+    }
 }

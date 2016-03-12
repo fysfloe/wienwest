@@ -29,8 +29,14 @@ Route::get('/', function () {
 Route::group(['middleware' => ['web']], function () {
     Route::group(['middleware' => ['auth']], function() {
         Route::get('/', 'HomeController@index');
-        Route::resource('player', 'PlayerController');
-        Route::resource('league_game', 'LeagueGameController');
+        Route::get('/myProfile', 'PlayerController@myProfile')->name('myProfile');
+
+        Route::resource('players', 'PlayerController');
+        Route::resource('league_games', 'LeagueGameController');
+        Route::resource('tryouts', 'TryoutController');
+        Route::resource('trainings', 'TrainingController');
+        Route::resource('replies', 'ReplyController');
+
     });
 });
 

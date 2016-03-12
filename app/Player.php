@@ -20,6 +20,14 @@ class Player extends Model
         return $this->belongsToMany('WienWest\Training');
     }
 
+    public function league_games() {
+        return $this->belongsToMany('WienWest\LeagueGame');
+    }
+
+    public function tryouts() {
+        return $this->belongsToMany('WienWest\Tryout');
+    }
+
     public function user() {
         return $this->belongsTo('WienWest\User');
     }

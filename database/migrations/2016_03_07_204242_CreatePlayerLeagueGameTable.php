@@ -12,9 +12,10 @@ class CreatePlayerLeagueGameTable extends Migration
      */
     public function up()
     {
-        Schema::create('player_league_game', function(Blueprint $table) {
+        Schema::create('league_game_player', function(Blueprint $table) {
             $table->integer('player_id')->unsigned();
             $table->integer('league_game_id')->unsigned();
+            $table->string('in');
             $table->timestamps();
         });
     }
@@ -26,6 +27,6 @@ class CreatePlayerLeagueGameTable extends Migration
      */
     public function down()
     {
-        Schema::drop('player_league_game');
+        Schema::drop('league_game_player');
     }
 }

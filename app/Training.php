@@ -19,10 +19,26 @@ class Training extends Game
     ];
 
     public function participants() {
-        return $this->hasMany('WienWest\Player');
+        return $this->belongsToMany('WienWest\Player');
+    }
+
+    public function ins() {
+        return $this->belongsToMany('WienWest\Player')->withPivot('in')->wherePivot('in', 'in');
+    }
+
+    public function maybes() {
+        return $this->belongsToMany('WienWest\Player')->withPivot('in')->wherePivot('in', 'maybe');
+    }
+
+    public function outs() {
+        return $this->belongsToMany('WienWest\Player')->withPivot('in')->wherePivot('in', 'out');
     }
 
     public function replies() {
         return $this->morphMany('WienWest\Reply', 'repliable');
+    }
+
+    public function getType() {
+        return 'WienWest\Training';
     }
 }

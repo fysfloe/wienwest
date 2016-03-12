@@ -14,14 +14,17 @@ class CreateLeagueGamesTable extends Migration
     {
         Schema::create('league_games', function(Blueprint $table) {
             $table->increments('id');
+            $table->boolean('home');
+            $table->integer('round');
             $table->string('opponent');
             $table->date('date');
             $table->time('start_time');
             $table->time('meeting_time');
+            $table->string('result')->nullable();
             $table->string('location');
             $table->string('title')->nullable();
             $table->string('description')->nullable();
-            $table->string('lineup');
+            $table->integer('lineup_id')->unsigned()->nullable();
             $table->integer('user_id')->unsigned();
             $table->timestamps();
         });

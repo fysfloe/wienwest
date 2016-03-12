@@ -15,6 +15,7 @@ class CreatePlayerTryoutTable extends Migration
         Schema::create('player_tryout', function(Blueprint $table) {
             $table->integer('player_id')->unsigned();
             $table->integer('tryout_id')->unsigned();
+            $table->string('in');
             $table->timestamps();
         });
     }
