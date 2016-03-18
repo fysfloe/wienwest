@@ -12,12 +12,11 @@
 		</div>
 	@endif
 
-	{!! Form::model(new WienWest\Player, ['method' => 'PATCH', 'route' => ['players.update', $player->id], 'class' => 'form-horizontal', 'files' => true]) !!}
-	 @include('players/partials/_form')
-	 @include('players/partials/_avatars')
+	{!! Form::model(new WienWest\LeagueGame, ['route' => ['league_games.store'], 'class' => 'form-horizontal']) !!}
+	 @include('games/league-games/partials/_form')
 			<!-- Submit -->
 	<div class="form-group">
-		<div class="col-md-6 col-md-offset-4">{!! Form::submit('Schick\'s ab!', ['class'=>'btn btn-primary']) !!}</div>
+		<div class="col-md-6 col-md-offset-4">{!! Form::submit('Spiel erstellen', ['class'=>'btn btn-primary']) !!}</div>
 	</div>
 	 {!! Form::close() !!}
 @endsection

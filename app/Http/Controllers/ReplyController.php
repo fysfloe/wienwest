@@ -127,12 +127,12 @@ class ReplyController extends Controller
      */
     public function destroy($id)
     {
-        $league_game = LeagueGame::find($id);
-        if($league_game) {
-            LeagueGame::destroy($id);
-            return Redirect::back()->with('message', 'Spiel gelöscht.');
+        $reply = Reply::find($id);
+        if($reply && Auth::user()->id == $reply->user_id) {
+            Reply::destroy($id);
+            return Redirect::back()->with('message', 'Antwort gelöscht.');
         } else {
-            return Redirect::back()->with('message', 'Versuch\' nicht, etwas zu löschen, was es nicht gibt!');
+            return Redirect::back()->with('message', 'Herst! Das darfst du nicht!');
         }
 
     }

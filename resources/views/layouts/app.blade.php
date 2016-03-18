@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Laravel</title>
+    <title>FC Wien West | Intern</title>
 
     <!-- Fonts -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
@@ -60,7 +60,7 @@
                 </ul>
 
                 <!-- Right Side Of Navbar -->
-                <ul class="nav navbar-nav navbar-right">
+                <ul class="nav navbar-nav navbar-right @if (Auth::guest()) logged-out @endif">
                     <!-- Authentication Links -->
                     @if (Auth::guest())
                         <li><a href="{{ url('/login') }}">Login</a></li>
@@ -92,13 +92,16 @@
         </div>
     </nav>
 
-    <img src="{{ asset('img/header_1600x400.jpg') }}" class="header-image" alt="Wien West">
+    <div class="header-image-wrap">
+        <img src="{{ asset('img/header_1600x400.jpg') }}" class="header-image" alt="Wien West">
+    </div>
 
     <div class="container">
+        @if(isset($title))
         <div class="row page-title">
             <h1 class="page-title">{{ $title }}</h1>
         </div>
-
+        @endif
         @if(Session::has('message') || Session::has('success'))
             <div class="container">
                 <div class="alert alert-{{ Session::has('success') ? 'success' : (Session::has('message') ? 'warning' : '') }}">
@@ -109,17 +112,24 @@
         @endif
 
         <div class="row">
-            <div class="col-md-9 main-content">
+            <div class="main-content @if(isset($sidebar)) col-md-9 @else col-md-12 @endif">
                 @yield('content')
             </div>
+            @if(isset($sidebar))
             <div class="col-md-3 sidebar">
                 @include('sidebar')
             </div>
+            @endif
         </div>
     </div>
 
+    <footer>
+        <div class="container">Da steht auch irgendwas</div>
+    </footer>
+
     <!-- JavaScripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.3/jquery-ui.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
         <script src="{{ asset('/js/moment.min.js') }}"></script>
         <script type="text/javascript" src="{{ asset('/js/bootstrap-datetimepicker.min.js') }}"></script>

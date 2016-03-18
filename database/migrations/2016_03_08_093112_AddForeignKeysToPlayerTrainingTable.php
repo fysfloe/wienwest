@@ -14,8 +14,8 @@ class AddForeignKeysToPlayerTrainingTable extends Migration
     {
         Schema::table('player_training', function(Blueprint $table)
         {
-            $table->foreign('player_id')->references('id')->on('players')->onUpdate('CASCADE')->onDelete('RESTRICT');
-            $table->foreign('training_id')->references('id')->on('trainings')->onUpdate('CASCADE')->onDelete('RESTRICT');
+            $table->foreign('player_id')->references('id')->on('players')->onUpdate('CASCADE')->onDelete('CASCADE');
+            $table->foreign('training_id')->references('id')->on('trainings')->onUpdate('CASCADE')->onDelete('CASCADE');
         });
     }
 

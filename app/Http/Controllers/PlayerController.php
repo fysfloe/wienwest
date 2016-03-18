@@ -11,6 +11,7 @@ use Redirect;
 use Validator;
 use Illuminate\Support\Facades\Input;
 use WienWest\Player;
+use WienWest\LeagueGame;
 
 class PlayerController extends Controller
 {
@@ -62,9 +63,11 @@ class PlayerController extends Controller
      */
     public function index()
     {
-        $players = Player::all();
+        $players = Player::orderBy('number')->get();
 
-        return view('players.index')->with('players', $players);
+        return view('players.index')->with([
+            'players' => $players
+        ]);
     }
 
     /**
@@ -79,7 +82,10 @@ class PlayerController extends Controller
         if ($player) {
             return Redirect::route('players.edit', $player->id);
         } else {
-            return view('players.create')->with('avatars', $this->avatars);
+            return view('players.create')->with([
+                'avatars' => $this->avatars,
+                'sidebar' => true
+            ]);
         }
     }
 
@@ -120,11 +126,18 @@ class PlayerController extends Controller
      */
     public function show($id)
     {
-        $player = Player::find($id);
+        $player = Player::with('league_games_past', 'tryouts_past', 'trainings_past')->find($id);
         if (!$player) {
             return Redirect::back()->with('message', 'Schade. Dieser Spieler existiert wohl nicht...');
         } else {
-            return view('players.show')->with(['player' => $player]);
+            $other_players = Player::where('id', '!=', $id)->get();
+            $other_players = $other_players->shuffle()->slice(0,3);
+
+            return view('players.show')->with([
+                'player' => $player,
+                'sidebar' => true,
+                'other_players' => $other_players
+            ]);
         }
     }
 
@@ -140,7 +153,7 @@ class PlayerController extends Controller
         if (!$player || $id != Auth::user()->player()->first()->id) {
             return Redirect::back()->with('message', 'Schade. Dieser Spieler existiert wohl nicht...');
         } else {
-            return view('players.edit')->with(['player' => $player, 'avatars' => $this->avatars]);
+            return view('players.edit')->with(['player' => $player, 'avatars' => $this->avatars, 'sidebar' => true]);
         }
     }
 

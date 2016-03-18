@@ -28,15 +28,15 @@ class LeagueGame extends Game
     }
 
     public function ins() {
-        return $this->belongsToMany('WienWest\Player')->withPivot('in')->wherePivot('in', 'in');
+        return $this->belongsToMany('WienWest\Player')->withPivot('in')->wherePivot('in', 'in')->orderBy('number');
     }
 
     public function maybes() {
-        return $this->belongsToMany('WienWest\Player')->withPivot('in')->wherePivot('in', 'maybe');
+        return $this->belongsToMany('WienWest\Player')->withPivot('in')->wherePivot('in', 'maybe')->orderBy('number');
     }
 
     public function outs() {
-        return $this->belongsToMany('WienWest\Player')->withPivot('in')->wherePivot('in', 'out');
+        return $this->belongsToMany('WienWest\Player')->withPivot('in')->wherePivot('in', 'out')->orderBy('number');
     }
 
     public function replies() {
@@ -45,5 +45,9 @@ class LeagueGame extends Game
 
     public function getType() {
         return 'WienWest\LeagueGame';
+    }
+
+    public function lineup() {
+        return $this->morphOne('WienWest\Lineup', 'gameable');
     }
 }

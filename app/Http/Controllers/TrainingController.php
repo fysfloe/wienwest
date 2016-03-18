@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Redirect;
 use Validator;
 use Illuminate\Support\Facades\Input;
 
-class TrainingController extends Controller
+class TrainingController extends GameController
 {
     protected $rules = [
         'recurring_times' => 'required_with:recurring|integer|between:1,15',
@@ -46,6 +46,7 @@ class TrainingController extends Controller
             'upcoming' => $upcoming,
             'past' => $past,
             'title' => 'Trainings',
+            'sidebar' => true
         ];
 
         if(count($upcoming) > 0) {
@@ -59,7 +60,12 @@ class TrainingController extends Controller
             $view_variables['next_training'] = $next_training;
         }
 
-        return view('trainings.index')->with($view_variables);
+        if($max_players = $this->getMaxPlayers('trainings')) {
+            $view_variables['game_name'] = 'Trainings';
+            $view_variables['max_players'] = $max_players;
+        }
+
+        return view('games.trainings.index')->with($view_variables);
     }
 
     /**
@@ -71,7 +77,7 @@ class TrainingController extends Controller
     {
         $user = Auth::user();
         if($user->hasRole('admin')) {
-            return view('trainings.create')->with(['title' => 'Training erstellen']);
+            return view('games.trainings.create')->with(['title' => 'Training erstellen', 'sidebar' => true]);
         } else {
             return Redirect::route('trainings.index')->with('message', 'Herst! Das darfst du nicht...');
         }
@@ -126,7 +132,7 @@ class TrainingController extends Controller
 
         $reply = $game->replies()->where('user_id', Auth::user()->id)->orderBy('created_at', 'desc')->first();
 
-        $replies = $game->replies()->get();
+        $replies = $game->replies()->where('content', '!=', '')->orderBy('created_at', 'desc')->with('user.player')->paginate(10);
 
         $view_variables = [
             'game' => $game,
@@ -135,14 +141,15 @@ class TrainingController extends Controller
             'players_in' => $players_in,
             'players_maybe' => $players_maybe,
             'players_out' => $players_out,
-            'title' => 'Training'
+            'title' => 'Training',
+            'sidebar' => true
         ];
 
         if($game->date < date('Y-m-d') && $game->start_time < date('H:i')) {
             $view_variables['past_game'] = true;
         }
 
-        return view('trainings.show')->with($view_variables);
+        return view('games.trainings.show')->with($view_variables);
     }
 
     /**

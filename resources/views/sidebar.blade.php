@@ -20,3 +20,15 @@
     @if (isset($players_out))
         @include('sidebar.players-out', ['players_out' => $players_out])
     @endif
+
+    @if (isset($max_players))
+        @include('sidebar.max-players', ['max_players' => $max_players])
+    @endif
+
+    @if (isset($other_players))
+        @include('sidebar.other-players', ['other_players' => $other_players])
+    @endif
+
+    @if (isset($players_droppable))
+        @include('sidebar.players-droppable', ['players' => $players_droppable])
+    @endif

@@ -14,8 +14,8 @@ class AddForeignKeysToPlayerLeagueGameTable extends Migration
     {
         Schema::table('league_game_player', function(Blueprint $table)
         {
-            $table->foreign('player_id')->references('id')->on('players')->onUpdate('CASCADE')->onDelete('RESTRICT');
-            $table->foreign('league_game_id')->references('id')->on('league_games')->onUpdate('CASCADE')->onDelete('RESTRICT');
+            $table->foreign('player_id')->references('id')->on('players')->onUpdate('CASCADE')->onDelete('CASCADE');
+            $table->foreign('league_game_id')->references('id')->on('league_games')->onUpdate('CASCADE')->onDelete('CASCADE');
         });
     }
 

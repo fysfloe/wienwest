@@ -14,7 +14,7 @@ class AddForeignKeysToRepliesTable extends Migration
     {
         Schema::table('replies', function(Blueprint $table)
         {
-            $table->foreign('user_id')->references('id')->on('users')->onUpdate('CASCADE')->onDelete('RESTRICT');
+            $table->foreign('user_id')->references('id')->on('users')->onUpdate('CASCADE')->onDelete('CASCADE');
         });
     }
 

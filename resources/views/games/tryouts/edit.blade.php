@@ -12,9 +12,8 @@
 		</div>
 	@endif
 
-	{!! Form::model(new WienWest\Player, ['method' => 'PATCH', 'route' => ['players.update', $player->id], 'class' => 'form-horizontal', 'files' => true]) !!}
-	 @include('players/partials/_form')
-	 @include('players/partials/_avatars')
+	{!! Form::model(new WienWest\LeagueGame, ['method' => 'PATCH', 'route' => ['tryouts.update', $game->id], 'class' => 'form-horizontal', 'files' => true]) !!}
+	 @include('games/tryouts/partials/_form')
 			<!-- Submit -->
 	<div class="form-group">
 		<div class="col-md-6 col-md-offset-4">{!! Form::submit('Schick\'s ab!', ['class'=>'btn btn-primary']) !!}</div>
