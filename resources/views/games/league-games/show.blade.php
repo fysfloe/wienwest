@@ -46,6 +46,9 @@
 			{!! Form::close() !!}
 				<hr>
 		@endif
+
+		<a href="{{ route('league_games.index') }}" class="link-back"><i class="fa fa-chevron-left"></i> Alle Meisterschaftsspiele</a>
+
 		<div class="league-game row flex @if($game->home) home @else away @endif">
 			<div class="col-md-4">
 				<span class="date-big">{{ date_format(new DateTime($game->date), 'D, d.m.Y') }}</span><br>
@@ -58,14 +61,17 @@
 			</div>
 		</div>
 		<div class="lineup row">
-			<h3>Aufstellung</h3>
+			<a href="#game-lineup" data-toggle="collapse"><h3>Aufstellung <i class="fa fa-angle-down" id="game-lineup-arrow"></i></h3></a>
 			@if($game->lineup && count(array_filter(json_decode($game->lineup->lineup, true)['positions'])) >= 11)
+				<div id="game-lineup" class="collapse in">
 				@include('games.lineups.'.$game->lineup->mode, ['positions' => $positions])
+				@include('games.lineups.bench', ['positions' => $positions])
+				</div>
 			@else
 				<p>Wird noch bekannt gegeben.</p>
 			@endif
 			@if(Auth::user()->hasRole('admin') && !isset($past_game))
-				<a class="btn btn-default" href="{{ route('league_games.lineup', $game->id) }}"><i class="fa fa-btn fa-users"></i> Aufstellung</a>
+				<a class="btn btn-default" href="{{ route('lineup', 'league_games', $game->id) }}"><i class="fa fa-btn fa-users"></i> Aufstellung</a>
 			@endif
 		</div>
 		@if(!isset($past_game))

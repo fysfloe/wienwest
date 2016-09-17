@@ -19,7 +19,6 @@ class LeagueGame extends Game
         'title',
         'result',
         'description',
-        'lineup',
         'user_id',
     ];
 

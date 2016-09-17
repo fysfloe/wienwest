@@ -1,7 +1,8 @@
 <div class="participants lineup 4-3-3">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-            <div class="col-md-4">
+            <div class="col-md-4 back">
+                @if(isset($positions->lf))
                 <li class="col-md-12 " data-id="{{ $positions->lf->id }}">
 
                     <div class="row">
@@ -17,8 +18,12 @@
                     </div>
 
                 </li>
+                @else
+                    <span class="question-mark">?</span>
+                @endif
             </div>
             <div class="col-md-4">
+                @if(isset($positions->st))
                 <li class="col-md-12 " data-id="{{ $positions->st->id }}">
 
                     <div class="row">
@@ -34,8 +39,12 @@
                     </div>
 
                 </li>
+                @else
+                    <span class="question-mark">?</span>
+                @endif
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 back">
+                @if(isset($positions->rf))
                 <li class="col-md-12 " data-id="{{ $positions->rf->id }}">
 
                     <div class="row">
@@ -51,12 +60,16 @@
                     </div>
 
                 </li>
+                @else
+                    <span class="question-mark">?</span>
+                @endif
             </div>
         </div>
     </div>
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="col-md-4">
+                @if(isset($positions->lm))
                 <li class="col-md-12 " data-id="{{ $positions->lm->id }}">
 
                     <div class="row">
@@ -72,8 +85,12 @@
                     </div>
 
                 </li>
+                @else
+                    <span class="question-mark">?</span>
+                @endif
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 back">
+                @if(isset($positions->zm))
                 <li class="col-md-12 " data-id="{{ $positions->zm->id }}">
 
                     <div class="row">
@@ -89,8 +106,12 @@
                     </div>
 
                 </li>
+                @else
+                    <span class="question-mark">?</span>
+                @endif
             </div>
             <div class="col-md-4">
+                @if(isset($positions->rm))
                 <li class="col-md-12 " data-id="{{ $positions->rm->id }}">
 
                     <div class="row">
@@ -106,11 +127,15 @@
                     </div>
 
                 </li>
+                @else
+                    <span class="question-mark">?</span>
+                @endif
             </div>
         </div>
     </div>
     <div class="row">
         <div class="col-md-3">
+            @if(isset($positions->lv))
             <li class="col-md-12 " data-id="{{ $positions->lv->id }}">
 
                 <div class="row">
@@ -126,8 +151,12 @@
                 </div>
 
             </li>
+            @else
+                <span class="question-mark">?</span>
+            @endif
         </div>
-        <div class="col-md-3">
+        <div class="col-md-3 back">
+            @if(isset($positions->liv))
             <li class="col-md-12 " data-id="{{ $positions->liv->id }}">
 
                 <div class="row">
@@ -143,8 +172,12 @@
                 </div>
 
             </li>
+            @else
+                <span class="question-mark">?</span>
+            @endif
         </div>
-        <div class="col-md-3">
+        <div class="col-md-3 back">
+            @if(isset($positions->riv))
             <li class="col-md-12 " data-id="{{ $positions->riv->id }}">
 
                 <div class="row">
@@ -160,8 +193,12 @@
                 </div>
 
             </li>
+            @else
+                <span class="question-mark">?</span>
+            @endif
         </div>
         <div class="col-md-3">
+            @if(isset($positions->rv))
             <li class="col-md-12 " data-id="{{ $positions->rv->id }}">
 
                 <div class="row">
@@ -177,11 +214,15 @@
                 </div>
 
             </li>
+            @else
+                <span class="question-mark">?</span>
+            @endif
         </div>
     </div>
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="col-md-4 col-md-offset-4">
+                @if(isset($positions->tw))
                 <li class="col-md-12 " data-id="{{ $positions->tw->id }}">
 
                     <div class="row">
@@ -197,6 +238,9 @@
                     </div>
 
                 </li>
+                @else
+                    <span class="question-mark">?</span>
+                @endif
             </div>
         </div>
     </div>

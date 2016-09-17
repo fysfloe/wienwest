@@ -32,3 +32,7 @@
     @if (isset($players_droppable))
         @include('sidebar.players-droppable', ['players' => $players_droppable])
     @endif
+
+    @if (isset($change_password))
+        @include('sidebar.change_password')
+    @endif

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-	<div class="tryouts games">
+	<div class="cup-games games">
 		@if(Auth::user()->hasRole('admin'))
 			@if ($errors->get('home_team') || $errors->get('away_team'))
 				<div class="alert alert-danger">
@@ -21,7 +21,7 @@
 
 					<!-- Modal content-->
 					<div class="modal-content">
-						{!! Form::open(array('method' => 'POST', 'route' => array('tryouts.edit_result', $game->id))) !!}
+						{!! Form::open(array('method' => 'POST', 'route' => array('cup_games.edit_result', $game->id))) !!}
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal">&times;</button>
 							<h4 class="modal-title">Ergebnis eintragen</h4>
@@ -40,16 +40,16 @@
 				</div>
 			</div>
 
-			<a class="btn btn-primary" href="{{ route('tryouts.edit', $game->id) }}"><i class="fa fa-btn fa-edit"></i> Bearbeiten</a>
-			{!! Form::open(array('onsubmit' => 'return confirm("Willst du dieses Spiel wirklich löschen?")', 'class' => 'form-inline', 'method' => 'DELETE', 'route' => array('tryouts.destroy', $game->id))) !!}
+			<a class="btn btn-primary" href="{{ route('cup_games.edit', $game->id) }}"><i class="fa fa-btn fa-edit"></i> Bearbeiten</a>
+			{!! Form::open(array('onsubmit' => 'return confirm("Willst du dieses Spiel wirklich löschen?")', 'class' => 'form-inline', 'method' => 'DELETE', 'route' => array('cup_games.destroy', $game->id))) !!}
 			<button type="submit" class="btn btn-danger"><i class="fa fa-btn fa-trash"></i> Löschen</button>
 			{!! Form::close() !!}
-			<hr>
+				<hr>
 		@endif
 
-			<a href="{{ route('tryouts.index') }}" class="link-back"><i class="fa fa-chevron-left"></i> Alle Testspiele</a>
+		<a href="{{ route('cup_games.index') }}" class="link-back"><i class="fa fa-chevron-left"></i> Alle Cupspiele</a>
 
-			<div class="tryout row flex @if($game->home) home @else away @endif">
+		<div class="cup-game row flex @if($game->home) home @else away @endif">
 			<div class="col-md-4">
 				<span class="date-big">{{ date_format(new DateTime($game->date), 'D, d.m.Y') }}</span><br>
 				<span class="start-time border-bottom"><strong><i class="fa fa-clock-o"></i> Anpfiff: </strong>{{ date_format(new DateTime($game->start_time), 'H:i') }}</span>
@@ -64,14 +64,14 @@
 			<a href="#game-lineup" data-toggle="collapse"><h3>Aufstellung <i class="fa fa-angle-down" id="game-lineup-arrow"></i></h3></a>
 			@if($game->lineup && count(array_filter(json_decode($game->lineup->lineup, true)['positions'])) >= 11)
 				<div id="game-lineup" class="collapse in">
-					@include('games.lineups.'.$game->lineup->mode, ['positions' => $positions])
-					@include('games.lineups.bench', ['positions' => $positions])
+				@include('games.lineups.'.$game->lineup->mode, ['positions' => $positions])
+				@include('games.lineups.bench', ['positions' => $positions])
 				</div>
 			@else
 				<p>Wird noch bekannt gegeben.</p>
 			@endif
 			@if(Auth::user()->hasRole('admin') && !isset($past_game))
-				<a class="btn btn-default" href="{{ route('lineup', array('tryouts', $game->id)) }}"><i class="fa fa-btn fa-users"></i> Aufstellung</a>
+				<a class="btn btn-default" href="{{ route('lineup', 'cup_games', $game->id) }}"><i class="fa fa-btn fa-users"></i> Aufstellung</a>
 			@endif
 		</div>
 		@if(!isset($past_game))
@@ -115,9 +115,9 @@
 		@if(count($replies) > 0)
 			<h3>Antworten</h3>
 			<ul class="replies">
-				@foreach($replies as $reply)
-					@include('replies.show', $reply)
-				@endforeach
+			@foreach($replies as $reply)
+				@include('replies.show', $reply)
+			@endforeach
 			</ul>
 			{!! $replies->render() !!}
 		@endif

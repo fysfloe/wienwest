@@ -4,7 +4,7 @@
         @foreach($avatars as $avatar)
             @if($i % 6 == 0 && $i != 0) </div> @endif
             @if($i % 6 == 0 && $i != 0) <div class="row"> @endif
-                <div class="col-md-2 avatar{{ isset($player->avatar) && $player->avatar == $avatar ? ' chosen' : '' }}"><img src="{{ asset('img/cartoons/'.$avatar.'.png') }}" alt="{{ $avatar }}" data-radio="avatar{{ $i }}"></div>
+                <div class="circular col-md-2 avatar{{ isset($player->avatar) && $player->avatar == $avatar ? ' chosen' : '' }}" style="background-image: url({{ asset('img/cartoons/'.$avatar.'.png') }})" data-radio="avatar{{ $i }}" data-alt="{{ $avatar }}"></div>
             <?php $i++ ?>
         @endforeach
     </div>

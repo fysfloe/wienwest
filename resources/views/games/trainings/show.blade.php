@@ -2,6 +2,8 @@
 
 @section('content')
 		<div class="panel-body trainings games">
+			<a href="{{ route('trainings.index') }}" class="link-back"><i class="fa fa-chevron-left"></i> Alle Trainings</a>
+
 			<div class="training row flex single">
 				<div class="col-md-12">
 					<span class="date-big">{{ date_format(new DateTime($game->date), 'D, d.m.Y') }}</span><br>

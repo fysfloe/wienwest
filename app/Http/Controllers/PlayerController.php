@@ -4,6 +4,7 @@ namespace WienWest\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Hash;
 use WienWest\Http\Requests;
 
 use Auth;
@@ -29,6 +30,20 @@ class PlayerController extends Controller
         'number.integer' => 'Weißt du nicht, was eine Nummer ist?',
         'number.max' => 'Übertreib\'s nicht...',
         'avatar.required' => 'Such\' dir ein lustiges Bildchen aus!',
+    ];
+
+    protected $password_rules = [
+        'old_password' => 'required',
+        'changed_password' => 'required|same:changed_password_confirmation|different:old_password',
+        'changed_password_confirmation' => 'required',
+    ];
+
+    protected $password_messages = [
+        'old_password.required' => 'Musst schon das alte Passwort eingeben...',
+        'changed_password.required' => 'Musst schon ein neues Passwort eingeben...',
+        'changed_password_confirmation.required' => 'Musst schon das neue Passwort bestätigen...',
+        'changed_password.same' => 'Die beiden Passwörter müssen schon übereinstimmen...',
+        'changed_password.different' => 'Hat wenig Sinn, wenn das neue Passwort das gleiche ist, wie das alte!',
     ];
 
     protected $avatars = [
@@ -66,7 +81,8 @@ class PlayerController extends Controller
         $players = Player::orderBy('number')->get();
 
         return view('players.index')->with([
-            'players' => $players
+            'players' => $players,
+            'sidebar' => true,
         ]);
     }
 
@@ -84,7 +100,6 @@ class PlayerController extends Controller
         } else {
             return view('players.create')->with([
                 'avatars' => $this->avatars,
-                'sidebar' => true
             ]);
         }
     }
@@ -153,7 +168,12 @@ class PlayerController extends Controller
         if (!$player || $id != Auth::user()->player()->first()->id) {
             return Redirect::back()->with('message', 'Schade. Dieser Spieler existiert wohl nicht...');
         } else {
-            return view('players.edit')->with(['player' => $player, 'avatars' => $this->avatars, 'sidebar' => true]);
+            return view('players.edit')->with([
+                'player' => $player,
+                'avatars' => $this->avatars,
+                'change_password' => true,
+                'sidebar' => true
+            ]);
         }
     }
 
@@ -172,6 +192,25 @@ class PlayerController extends Controller
         $player->update(Input::all());
 
         return Redirect::route('players.edit', $id)->with('success', 'Spitze! Dein Profil wurde aktualisiert.');
+    }
+
+    public function changePassword(Request $request, $id)
+    {
+        $validator = Validator::make(Input::all(), $this->password_rules, $this->password_messages);
+
+        if ($validator->passes()) {
+            $user = Player::find($id)->user()->first();
+            if(!Hash::check(Input::get('old_password'), $user->password)) {
+                $validator->getMessageBag()->add('wrong-password', 'Das ist nicht dein altes Passwort...');
+                return Redirect::back()->withErrors($validator)->withInput();
+            } else {
+                $user->password = Hash::make($request->input('changed_password'));
+                $user->update();
+                return Redirect::back()->with('success', 'Spitze! Dein Passwort wurde geändert.');
+            }
+        }
+
+        return Redirect::back()->withErrors($validator)->withInput();
     }
 
     /**

@@ -4,20 +4,21 @@ namespace WienWest;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Tryout extends Game
+class CupGame extends Game
 {
-    protected $table = 'tryouts';
+    protected $table = 'cup_games';
 
     protected $fillable = [
         'home',
         'opponent',
+        'round',
         'date',
         'start_time',
         'meeting_time',
         'location',
         'title',
-        'description',
         'result',
+        'description',
         'user_id',
     ];
 
@@ -26,15 +27,15 @@ class Tryout extends Game
     }
 
     public function ins() {
-        return $this->belongsToMany('WienWest\Player')->withPivot('in')->wherePivot('in', 'in');
+        return $this->belongsToMany('WienWest\Player')->withPivot('in')->wherePivot('in', 'in')->orderBy('number');
     }
 
     public function maybes() {
-        return $this->belongsToMany('WienWest\Player')->withPivot('in')->wherePivot('in', 'maybe');
+        return $this->belongsToMany('WienWest\Player')->withPivot('in')->wherePivot('in', 'maybe')->orderBy('number');
     }
 
     public function outs() {
-        return $this->belongsToMany('WienWest\Player')->withPivot('in')->wherePivot('in', 'out');
+        return $this->belongsToMany('WienWest\Player')->withPivot('in')->wherePivot('in', 'out')->orderBy('number');
     }
 
     public function replies() {
@@ -42,7 +43,7 @@ class Tryout extends Game
     }
 
     public function getType() {
-        return 'WienWest\Tryout';
+        return 'WienWest\CupGame';
     }
 
     public function lineup() {

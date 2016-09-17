@@ -17,6 +17,11 @@
 						<span class="start-time border-bottom"><strong><i class="fa fa-clock-o"></i> Start: </strong>{{ date_format(new DateTime($game->start_time), 'H:i') }}</span>
 						<span class="meeting-time border-bottom"><strong><i class="fa fa-users"></i> Treffpunkt: </strong>{{ date_format(new DateTime($game->meeting_time), 'H:i') }}</span>
 						<span class="location"><strong><i class="fa fa-map-marker"></i> Ort: </strong>{{ $game->location }}</span>
+						@if(Auth::user()->hasRole('admin'))
+							{!! Form::open(array('onsubmit' => 'return confirm("Willst du dieses Training wirklich löschen?")', 'class' => 'form-inline', 'method' => 'DELETE', 'route' => array('trainings.destroy', $game->id))) !!}
+							<button type="submit" class="btn btn-danger"><i class="fa fa-btn fa-trash"></i> Löschen</button>
+							{!! Form::close() !!}
+						@endif
 					</div>
 				</li>
 			</a>

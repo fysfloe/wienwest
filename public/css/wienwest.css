@@ -1,3 +1,12 @@
+/* general */
+body, html {
+    font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+b, strong {
+    font-weight: 600;
+}
+
 .navbar-brand>img {
     width: 110px;
 }
@@ -11,7 +20,7 @@
     width: 100%;
 }
 
-.avatar-cartoons .row {
+.main-content .avatar-cartoons .row {
     margin-bottom: 30px;
 }
 
@@ -19,8 +28,8 @@ div.avatar:hover {
     cursor: pointer;
 }
 
-div.avatar.chosen img {
-    box-shadow: 0 0 5px 5px #df1e30;
+div.avatar:not(.chosen) {
+    opacity: 0.5;
 }
 
 div.avatar-radios {
@@ -29,7 +38,7 @@ div.avatar-radios {
 
 div.big-number {
     color: #BDBBBB;
-    font-weight: bold;
+    font-weight: 600;
     font-size: 6em;
     text-align: center;
     line-height: 160%;
@@ -47,7 +56,8 @@ div.big-number {
 
 /* players */
 
-div.players .circular {
+div.players .circular,
+.avatar-cartoons .circular {
     width: 80px;
     height: 80px;
     border-radius: 40px;
@@ -55,6 +65,14 @@ div.players .circular {
     -moz-border-radius: 40px;
     background-size: 100%;
     margin: 0 auto;
+}
+
+.avatar-cartoons .circular {
+    margin-right: 20px;
+}
+
+.change_password input {
+    margin-bottom: 15px;
 }
 
 div.player.single .circular {
@@ -70,7 +88,8 @@ div.player.single .circular {
 .participants .circular,
 .replies .circular,
 .max-player .circular,
-.other-player .circular {
+.other-player .circular,
+.bench .circular {
     width: 50px;
     height: 50px;
     border-radius: 25px;
@@ -81,7 +100,7 @@ div.player.single .circular {
 }
 
 div.players .name {
-    font-weight: bold;
+    font-weight: 600;
     padding-left: 8px !important;
 }
 
@@ -132,7 +151,7 @@ div.players a,
 
 .games span.date-big {
     font-size: 1.5em;
-    font-weight: bold;
+    font-weight: 600;
 }
 
 .games .teams {
@@ -232,7 +251,7 @@ div.players a,
     width: 80px;
     right: -40px;
     margin-top: -20px;
-    font-weight: bold;
+    font-weight: 600;
     color: white;
     text-transform: uppercase;
     letter-spacing: 2px;
@@ -261,7 +280,7 @@ div.players a,
     width: 120px;
     right: -60px;
     margin-top: -20px;
-    font-weight: bold;
+    font-weight: 600;
     color: white;
     text-transform: uppercase;
     letter-spacing: 2px;
@@ -281,7 +300,8 @@ div.players a,
 
 .participants li,
 .max-player .col-md-12,
-.other-player .col-md-12 {
+.other-player .col-md-12,
+.bench li {
     padding: 5px;
     border: 1px solid #f1f1f1;
     border-bottom: 3px solid;
@@ -406,7 +426,7 @@ li.reply .created-at {
     background: #eee;
     text-align: right;
     padding: 3px 0;
-    font-weight: bold;
+    font-weight: 600;
     color: gray;
 }
 
@@ -416,7 +436,7 @@ li.reply .created-at span {
 }
 
 li.reply .username {
-    font-weight: bold;
+    font-weight: 600;
 }
 
 .replies button {
@@ -442,7 +462,7 @@ li.reply .username {
 }
 
 h4 {
-    font-weight: bold;
+    font-weight: 600;
     font-size: 1.1em;
     color: darkgray;
 }
@@ -493,10 +513,48 @@ form.form-inline {
 }
 
 footer {
-    background: #2b2b2b;
+    margin-top: 60px;
+}
+
+footer h4 {
+    color: #2b2b2b;
+}
+
+footer > div:first-of-type {
+    box-shadow: 0 0 10px 0 #929292 inset;
+    background: #E8E8E8;
+    color: #6B6B6B;
     padding: 20px 0;
-    margin-top: 30px;
-    color: white;
+}
+
+footer > .container {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-weight: 600;
+    color: #2b2b2b;
+    text-transform: uppercase;
+    font-size: 0.8em;
+}
+
+footer > div:first-of-type a {
+    color: #2b2b2b;
+}
+
+footer > div:first-of-type ul {
+    padding: 0 1em;
+}
+
+footer .contact-form .row:not(:first-of-type) {
+    margin-top: 10px;
+}
+
+footer label {
+    margin: 0 0 0 3px;
+}
+
+footer textarea {
+    resize: none;
+    height: 7em !important;
 }
 
 /* sidebar */
@@ -509,7 +567,7 @@ footer {
     padding: 15px;
     font-size: 1em;
     text-transform: uppercase;
-    font-weight: bold;
+    font-weight: 600;
     color: #848484;
     letter-spacing: 2px;
 }
@@ -530,7 +588,7 @@ footer {
 
 .timer .col-md-4 {
     font-size: 2.5em;
-    font-weight: bold;
+    font-weight: 600;
     color: #d34657;
 }
 
@@ -560,7 +618,7 @@ footer {
 
 .lineup .position {
     color: #bbb;
-    font-weight: bold;
+    font-weight: 600;
 }
 
 .lineup .big-number {
@@ -579,6 +637,24 @@ a.remove-player {
 
 .lineup h3, .lineup h4 {
     text-align: center;
+}
+
+.lineup .back {
+    margin-top: 10px;
+}
+
+.question-mark {
+    font-weight: 600;
+    font-size: 6em;
+    text-align: center;
+    display: block;
+    color: lightgray;
+}
+
+a.link-back i {
+    font-size: 0.7em;
+    position: relative;
+    bottom: 0.15em;
 }
 
 @media screen and (min-width: 768px) {

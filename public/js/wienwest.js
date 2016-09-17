@@ -7,11 +7,10 @@ jQuery(function($) {
     avatars.click(function() {
         $('div.avatar.chosen').removeClass('chosen');
         $(this).addClass('chosen');
-        var img = $(this).find('img');
-        var img_data = img.data('radio');
+        var img_data = $(this).data('radio');
         var radio = $('input[data-avatar="'+img_data+'"]');
         radio.click();
-        radio.val(img.attr('alt'));
+        radio.val($(this).data('alt'));
     });
 
     var home = $('input[name="home"]');
@@ -121,6 +120,7 @@ jQuery(function($) {
             droppable.css({ border: '2px dotted lightgray' });
             droppable.find('.position').show();
             droppable.droppable('option', 'accept', '.draggable');
+            droppable.find('input[type="hidden"]').val('');
 
             parent.detach().appendTo(players_list);
         });
@@ -143,7 +143,9 @@ jQuery(function($) {
         }
     });
 
-    var hiddens = $('.lineup input[type="hidden"]');
+    var mode = $('.participants.lineup').data('mode');
+
+    var hiddens = $('.participants.lineup #'+mode+' input[type="hidden"], .bench input[type="hidden"]');
 
     hiddens.each(function() {
         if($(this).val()) {
@@ -155,9 +157,57 @@ jQuery(function($) {
         }
     });
 
-    //$('.droppable-lineup').hide();
+    $('.droppable-lineup:not(#'+mode+')').hide().find('input[type="hidden"]').prop('disabled', true);
 
-    $('select[name="mode"]').on('change', function() {
-        $('#'+$(this).val()).show();
+    var previous;
+
+    $('select[name="mode"]').focus(function() {
+        previous = this.value;
+    }).on('change', function(e) {
+        var remove_links = $('.lineup .remove-player');
+        if(remove_links.length > 0) {
+            var $this = $(this);
+            bootbox.confirm({
+                title: 'Weißt du eh, was du tust?',
+                message: 'Aufpassen: Damit wird deine alte Aufstellung komplett gelöscht!',
+                buttons: {
+                    'cancel': {
+                        label: 'Oh Gott, nein!',
+                    },
+                    'confirm': {
+                        label: 'Ma wuascht!',
+                    }
+                },
+                callback: function(result) {
+                    if(result) {
+                        remove_links.click();
+                        $('.droppable-lineup').each(function() {
+                            console.log($(this).find('input[type="hidden"]'));
+                            $(this).hide().find('input[type="hidden"]').prop('disabled', true);
+                        });
+                        $('#'+$this.val()).show().find('input[type="hidden"]').prop('disabled', false);
+                    } else {
+                        $this.val(previous);
+                    }
+                }
+            });
+        } else {
+            $('.droppable-lineup').hide().each(function() {
+                console.log($(this).find('input[type="hidden"]'));
+                $(this).find('input[type="hidden"]').prop('disabled', true);
+            });
+            $('#'+$(this).val()).show().find('input[type="hidden"]').prop('disabled', false);
+        }
+
+    });
+
+    var game_lineup = $('#game-lineup');
+
+    game_lineup.on('shown.bs.collapse', function () {
+        $("#game-lineup-arrow").removeClass("fa-angle-right").addClass("fa-angle-down");
+    });
+
+    game_lineup.on('hidden.bs.collapse', function () {
+        $("#game-lineup-arrow").removeClass("fa-angle-down").addClass("fa-angle-right");
     });
 });

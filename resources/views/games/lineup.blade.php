@@ -12,54 +12,24 @@
         </div>
     @endif
 
-    {!! Form::model(new WienWest\Lineup, ['route' => ['league_games.lineup.save', $game_id], 'class' => 'form-horizontal']) !!}
+    <a href="{{ route($game_type.'.show', $game_id) }}" class="link-back"><i class="fa fa-chevron-left"></i> Zurück zum Spiel</a>
+
+    <hr>
+
+    {!! Form::model(new WienWest\Lineup, ['route' => ['lineup.save',$game_type, $game_id], 'class' => 'form-horizontal']) !!}
     <div class="form-group">
         {!! Form::label('mode', 'Modus', array('class' => 'col-md-4 control-label')) !!}
-        <div class="col-md-6">{!! Form::select('mode', array('' => 'Auswählen', '4-2-3-1' => '4-2-3-1', '4-3-3' => '4-3-3'), array('class' => 'form-control')) !!}</div>
+        <div class="col-md-6">{!! Form::select('mode', array('4-2-3-1' => '4-2-3-1', '4-3-3' => '4-3-3'), isset($lineup->mode) ? $lineup->mode : '4-2-3-1', array('class' => 'form-control')) !!}</div>
     </div>
 
     <hr>
-    <div class="participants lineup">
+    <div class="participants lineup" data-mode="@if(isset($lineup->mode)){{ $lineup->mode }}@else{{'4-2-3-1'}}@endif">
         <h3>Aufstellung</h3>
 
-        @if(isset($lineup))
-            @include('games.lineups.droppable.'.$lineup->mode, array('lineup' => $lineup->lineup))
-        @elseif(isset($lineup_ajax))
-            @include('games.lineups.droppable.'.$lineup_ajax)
-        @endif
+            @include('games.lineups.droppable.4-2-3-1', isset($lineup) ? array('lineup' => $lineup) : array())
+            @include('games.lineups.droppable.4-3-3', isset($lineup) ? array('lineup' => $lineup) : array())
 
-        <hr>
-
-        <h4>Bank</h4>
-
-        <hr>
-
-        <div class="row">
-            <div class="col-md-3">
-                <div class="droppable">
-                    <span class="position">Sub1</span>
-                    {!! Form::hidden('positions[sub1]', isset($lineup->sub1) ? $lineup->sub1 : null) !!}
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="droppable">
-                    <span class="position">Sub2</span>
-                    {!! Form::hidden('positions[sub2]', isset($lineup->sub2) ? $lineup->sub2 : null) !!}
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="droppable">
-                    <span class="position">Sub3</span>
-                    {!! Form::hidden('positions[sub3]', isset($lineup->sub3) ? $lineup->sub3 : null) !!}
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="droppable">
-                    <span class="position">Sub4</span>
-                    {!! Form::hidden('positions[sub4]', isset($lineup->sub4) ? $lineup->sub4 : null) !!}
-                </div>
-            </div>
-        </div>
+            @include('games.lineups.droppable.bench', isset($lineup) ? array('lineup' => $lineup) : array())
     </div>
 
     <hr>

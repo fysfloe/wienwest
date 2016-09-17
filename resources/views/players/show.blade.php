@@ -61,7 +61,7 @@
 				</tr>
 				@foreach($player->tryouts_past as $game)
 					<tr>
-						<td>{{ date_format(new DateTime($league_game->date), 'd.m.Y') }} {{ date_format(new DateTime($game->start_time), 'H:i') }}</td>
+						<td>{{ date_format(new DateTime($game->date), 'd.m.Y') }} {{ date_format(new DateTime($game->start_time), 'H:i') }}</td>
 						<td>{{ $game->home ? 'Heim' : 'Auswärts' }}</td>
 						<td>{{ $game->opponent }}</td>
 						<td>{{ $game->result }}</td>

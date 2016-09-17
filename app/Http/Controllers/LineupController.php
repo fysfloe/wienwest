@@ -11,15 +11,28 @@ use WienWest\LeagueGame;
 use Illuminate\Support\Facades\Input;
 
 use Redirect;
+use WienWest\Tryout;
 
 class LineupController extends Controller
 {
-    public function lineup($id)
+    public function lineup($game_type, $id)
     {
-        $game = LeagueGame::with('ins')->with('lineup')->find($id);
+        switch($game_type) {
+            case 'tryouts':
+                $game = Tryout::with('ins')->with('lineup')->find($id);
+                break;
+            case 'league_games':
+                $game = LeagueGame::with('ins')->with('lineup')->find($id);
+                break;
+            case 'cup_games':
+                break;
+            default:
+                break;
+        }
 
         $view_variables = [
             'game_id' => $id,
+            'game_type' => $game_type,
             'sidebar' => true,
             'title' => 'Aufstellung gegen ' . $game->opponent,
             'players_droppable' => $game->ins,
@@ -33,7 +46,7 @@ class LineupController extends Controller
         return view('games.lineup')->with($view_variables);
     }
 
-    public function save(Request $request, $id)
+    public function save(Request $request, $game_type, $id)
     {
         $positions = Input::only('positions');
 
@@ -42,12 +55,24 @@ class LineupController extends Controller
             'lineup' => json_encode($positions)
         ];
 
-        $league_game = LeagueGame::find($id);
+        switch($game_type) {
+            case 'tryouts':
+                $game = Tryout::find($id);
+                break;
+            case 'league_games':
+                $game = LeagueGame::find($id);
+                break;
+            case 'cup_games':
+                break;
+            default:
+                $game = null;
+                break;
+        }
 
-        if($league_game->lineup()->first()) {
-            $league_game->lineup()->update($lineup);
+        if($game && $game->lineup()->first()) {
+            $game->lineup()->update($lineup);
         } else {
-            $league_game->lineup()->create($lineup);
+            $game->lineup()->create($lineup);
         }
         return Redirect::back()->with('success', 'Aufstellung gespeichert!');
     }

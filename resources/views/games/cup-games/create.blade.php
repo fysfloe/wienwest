@@ -12,11 +12,11 @@
 		</div>
 	@endif
 
-	{!! Form::model(new WienWest\Training, ['route' => ['trainings.store'], 'class' => 'form-horizontal']) !!}
-	 @include('games.trainings.partials._form')
+	{!! Form::model(new WienWest\CupGame, ['route' => ['cup_games.store'], 'class' => 'form-horizontal']) !!}
+	 @include('games/cup-games/partials/_form')
 			<!-- Submit -->
 	<div class="form-group">
-		<div class="col-md-6 col-md-offset-4">{!! Form::submit('Training erstellen', ['class'=>'btn btn-primary']) !!}</div>
+		<div class="col-md-6 col-md-offset-4">{!! Form::submit('Spiel erstellen', ['class'=>'btn btn-primary']) !!}</div>
 	</div>
 	 {!! Form::close() !!}
 @endsection

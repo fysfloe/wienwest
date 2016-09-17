@@ -19,6 +19,9 @@ abstract class GameController extends Controller
                 case 'tryouts':
                     $item = $item->tryouts_count();
                     break;
+                case 'cup_games':
+                    $item = $item->cup_games_count();
+                    break;
                 case 'trainings':
                     $item = $item->trainings_count();
                     break;

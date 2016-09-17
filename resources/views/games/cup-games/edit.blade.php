@@ -14,8 +14,8 @@
 
 	<a href="{{ route('league_games.show', $game->id) }}" class="link-back"><i class="fa fa-chevron-left"></i> Zurück zum Spiel</a>
 
-	{!! Form::model(new WienWest\LeagueGame, ['method' => 'PATCH', 'route' => ['league_games.update', $game->id], 'class' => 'form-horizontal', 'files' => true]) !!}
-	 @include('games/league-games/partials/_form')
+	{!! Form::model(new WienWest\CupGame(), ['method' => 'PATCH', 'route' => ['cup_games.update', $game->id], 'class' => 'form-horizontal', 'files' => true]) !!}
+	 @include('games/cup-games/partials/_form')
 			<!-- Submit -->
 	<div class="form-group">
 		<div class="col-md-6 col-md-offset-4">{!! Form::submit('Schick\'s ab!', ['class'=>'btn btn-primary']) !!}</div>

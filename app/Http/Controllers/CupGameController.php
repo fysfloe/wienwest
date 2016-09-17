@@ -4,18 +4,20 @@ namespace WienWest\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use WienWest\CupGame;
 use WienWest\Http\Requests;
 
-use WienWest\Tryout;
+use WienWest\LeagueGame;
 use WienWest\Player;
 use Auth;
 use Illuminate\Support\Facades\Redirect;
 use Validator;
 use Illuminate\Support\Facades\Input;
 
-class TryoutController extends GameController
+class CupGameController extends GameController
 {
     protected $rules = [
+        'round' => 'required|integer',
         'opponent' => 'required',
         'date' => 'required',
         'start_time' => 'required',
@@ -24,6 +26,8 @@ class TryoutController extends GameController
     ];
 
     protected $messages = [
+        'round.required' => 'Welche Runde is\' das?',
+        'round.integer' => 'Gib eine Zahl bei der Runde ein.',
         'opponent.required' => 'Gegen wen spiel\' ma?',
         'date.required' => 'Wann spiel\' ma?',
         'start_time.required' => 'Wann is\'n Anpfiff?',
@@ -38,13 +42,13 @@ class TryoutController extends GameController
      */
     public function index()
     {
-        $upcoming = Tryout::where('date', '>=', date('Y-m-d'))->orderBy('date', 'desc')->get();
-        $past = Tryout::where('date', '<', date('Y-m-d'))->orderBy('date', 'desc')->get();
+        $upcoming = CupGame::where('date', '>=', date('Y-m-d'))->orderBy('date', 'asc')->get();
+        $past = CupGame::where('date', '<', date('Y-m-d'))->orderBy('date', 'asc')->get();
 
         $view_variables = [
             'upcoming' => $upcoming,
             'past' => $past,
-            'title' => 'Testspiele',
+            'title' => 'Cupspiele',
             'sidebar' => true,
         ];
 
@@ -59,12 +63,12 @@ class TryoutController extends GameController
             $view_variables['next_opponent'] = $next_opponent;
         }
 
-        if($max_players = $this->getMaxPlayers('tryouts')) {
-            $view_variables['game_name'] = 'Testspiele';
+        if($max_players = $this->getMaxPlayers('cup_games')) {
+            $view_variables['game_name'] = 'Cupspiele';
             $view_variables['max_players'] = $max_players;
         }
 
-        return view('games.tryouts.index')->with($view_variables);
+        return view('games.cup-games.index')->with($view_variables);
     }
 
     /**
@@ -76,9 +80,9 @@ class TryoutController extends GameController
     {
         $user = Auth::user();
         if($user->hasRole('admin')) {
-            return view('games.tryouts.create')->with(['title' => 'Testspiel erstellen', 'sidebar' => true]);
+            return view('games.cup-games.create')->with(['title' => 'Cupspiel erstellen', 'sidebar' => true]);
         } else {
-            return Redirect::route('tryouts.index')->with('message', 'Herst! Das darfst du nicht...');
+            return Redirect::route('cup_games.index')->with('message', 'Herst! Das darfst du nicht...');
         }
     }
 
@@ -95,13 +99,13 @@ class TryoutController extends GameController
         $validator = Validator::make(Input::all(), $this->rules, $this->messages);
 
         if($validator->passes()) {
-            $tryout = Input::all();
-            $tryout['user_id'] = $user->id;
-            $tryout['home'] = isset($tryout['home']);
+            $cup_game = Input::all();
+            $cup_game['user_id'] = $user->id;
+            $cup_game['home'] = isset($cup_game['home']);
 
-            Tryout::create($tryout);
+            CupGame::create($cup_game);
 
-            return Redirect::route('tryouts.index');
+            return Redirect::route('cup_games.index');
         }
 
         return Redirect::back()->withErrors($validator)->withInput();
@@ -115,7 +119,7 @@ class TryoutController extends GameController
      */
     public function show($id)
     {
-        $game = Tryout::find($id);
+        $game = CupGame::find($id);
         $players_in = $game->ins()->get();
         $players_maybe = $game->maybes()->get();
         $players_out = $game->outs()->get();
@@ -131,8 +135,8 @@ class TryoutController extends GameController
             'players_maybe' => $players_maybe,
             'players_out' => $players_out,
             'replies' => $replies,
-            'title' => 'Testspiel',
-            'sidebar' => true
+            'title' => 'Cupspiel',
+            'sidebar' => true,
         ];
 
         $lineup = $game->lineup()->first();
@@ -151,7 +155,7 @@ class TryoutController extends GameController
             $view_variables['past_game'] = true;
         }
 
-        return view('games.tryouts.show')->with($view_variables);
+        return view('games.cup-games.show')->with($view_variables);
     }
 
     /**
@@ -162,11 +166,11 @@ class TryoutController extends GameController
      */
     public function edit($id)
     {
-        $game = Tryout::find($id);
+        $game = CupGame::find($id);
         if (!$game) {
             return Redirect::back()->with('message', 'Schade. Dieses Spiel existiert wohl nicht...');
         } else {
-            return view('games.tryouts.edit')->with(['game' => $game, 'sidebar' => true, 'title' => 'Testspiel bearbeiten']);
+            return view('games.cup-games.edit')->with(['game' => $game, 'sidebar' => true, 'title' => 'Cupspiel bearbeiten']);
         }
     }
 
@@ -181,10 +185,10 @@ class TryoutController extends GameController
     {
         $this->validate($request, $this->rules, $this->messages);
 
-        $game = Tryout::find($id);
+        $game = CupGame::find($id);
         $game->update(Input::all());
 
-        return Redirect::route('tryouts.edit', $id)->with('success', 'Spitze! Das Spiel wurde aktualisiert.');
+        return Redirect::route('cup_games.edit', $id)->with('success', 'Spitze! Das Spiel wurde aktualisiert.');
     }
 
     /**
@@ -195,9 +199,9 @@ class TryoutController extends GameController
      */
     public function destroy($id)
     {
-        $tryout = Tryout::find($id);
-        if($tryout) {
-            Tryout::destroy($id);
+        $cup_game = CupGame::find($id);
+        if($cup_game) {
+            CupGame::destroy($id);
             return Redirect::back()->with('message', 'Spiel gelöscht.');
         } else {
             return Redirect::back()->with('message', 'Versuch\' nicht, etwas zu löschen, was es nicht gibt!');
@@ -224,8 +228,8 @@ class TryoutController extends GameController
         if($validator->passes()) {
             $inputs = Input::only('home_team', 'away_team');
             $result = $inputs['home_team'] . ':' . $inputs['away_team'];
-            $tryout = Tryout::find($id);
-            $tryout->update(array('result' => $result));
+            $cup_game = CupGame::find($id);
+            $cup_game->update(array('result' => $result));
 
             return Redirect::back()->with('success', 'Ergebnis eingetragen.');
         }

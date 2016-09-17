@@ -41,8 +41,8 @@ class LeagueGameController extends GameController
      */
     public function index()
     {
-        $upcoming = LeagueGame::where('date', '>=', date('Y-m-d'))->orderBy('date', 'desc')->get();
-        $past = LeagueGame::where('date', '<', date('Y-m-d'))->orderBy('date', 'desc')->get();
+        $upcoming = LeagueGame::where('date', '>=', date('Y-m-d'))->orderBy('date', 'asc')->get();
+        $past = LeagueGame::where('date', '<', date('Y-m-d'))->orderBy('date', 'asc')->get();
 
         $view_variables = [
             'upcoming' => $upcoming,

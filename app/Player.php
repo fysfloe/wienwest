@@ -24,6 +24,10 @@ class Player extends Model
         return $this->belongsToMany('WienWest\LeagueGame');
     }
 
+    public function cup_games() {
+        return $this->belongsToMany('WienWest\CupGame');
+    }
+
     public function tryouts() {
         return $this->belongsToMany('WienWest\Tryout');
     }
@@ -55,6 +59,11 @@ class Player extends Model
 
     public function tryouts_count() {
         $this->games_count = $this->tryouts()->where('in', 'in')->where('date', '<', date('Y-m-d'))->count();
+        return $this;
+    }
+
+    public function cup_games_count() {
+        $this->games_count = $this->cup_games()->where('in', 'in')->where('date', '<', date('Y-m-d'))->count();
         return $this;
     }
 

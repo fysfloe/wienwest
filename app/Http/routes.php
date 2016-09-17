@@ -32,12 +32,14 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('/myProfile', 'PlayerController@myProfile')->name('myProfile');
 
         Route::resource('players', 'PlayerController');
+        Route::post('players/{id}/change-password', 'PlayerController@changePassword');
         Route::resource('league_games', 'LeagueGameController');
         Route::post('league_games/{id}/edit-result', 'LeagueGameController@editResult')->name('league_games.edit_result');
         Route::post('tryouts/{id}/edit-result', 'TryoutController@editResult')->name('tryouts.edit_result');
-        Route::get('league_games/{id}/lineup', 'LineupController@lineup')->name('league_games.lineup');
-        Route::post('league_games/{id}/lineup', 'LineupController@save')->name('league_games.lineup.save');
+        Route::get('{game_type}/{id}/lineup', 'LineupController@lineup')->name('lineup');
+        Route::post('{game_type}/{id}/lineup', 'LineupController@save')->name('lineup.save');
         Route::resource('tryouts', 'TryoutController');
+        Route::resource('cup_games', 'CupGameController');
         Route::resource('trainings', 'TrainingController');
         Route::resource('replies', 'ReplyController');
 

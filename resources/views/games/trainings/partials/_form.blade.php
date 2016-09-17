@@ -4,7 +4,7 @@
 </div>
 <div class="form-group recurring-times">
     {!! Form::label('recurring_times', 'Wie viele Wochen?', array('class' => 'col-md-4 control-label')) !!}
-    <div class="col-md-6">{!! Form::number('recurring_times', null, array('class' => 'form-control')) !!}</div>
+    <div class="col-md-6">{!! Form::number('recurring_times', null, array('class' => 'form-control', 'min' => 1, 'max' => 15)) !!}</div>
 </div>
 <div class="form-group">
     {!! Form::label('date', 'Datum', array('class' => 'col-md-4 control-label')) !!}
