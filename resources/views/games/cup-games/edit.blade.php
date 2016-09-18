@@ -12,7 +12,7 @@
 		</div>
 	@endif
 
-	<a href="{{ route('league_games.show', $game->id) }}" class="link-back"><i class="fa fa-chevron-left"></i> Zurück zum Spiel</a>
+	<a href="{{ route('cup_games.show', $game->id) }}" class="link-back"><i class="fa fa-chevron-left"></i> Zurück zum Spiel</a>
 
 	{!! Form::model(new WienWest\CupGame(), ['method' => 'PATCH', 'route' => ['cup_games.update', $game->id], 'class' => 'form-horizontal', 'files' => true]) !!}
 	 @include('games/cup-games/partials/_form')

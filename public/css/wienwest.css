@@ -54,6 +54,56 @@ div.big-number {
     margin-right: 10px;
 }
 
+.alert-success {
+    margin-left: -15px;
+}
+
+/* home */
+.summary > .row.next-games > .col-md-4:not(:last-of-type),
+.summary .past-games a > div:not(:last-of-type) {
+    border-right: 2px solid;
+}
+
+.summary > .row.next-games > .col-md-4 {
+    text-align: center;
+}
+
+.summary > .row.next-games {
+    margin: 20px 0;
+    border-top: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+    padding: 20px 0;
+}
+
+.summary .is-in {
+    font-weight: bold;
+    margin: 15px 0 0;
+}
+
+.summary .is-in.in {
+    color: #5cb85c;
+}
+
+.summary .is-in.maybe {
+    color: #f0ad4e;
+}
+
+.summary .is-in.out {
+    color: #d9534f;;
+}
+
+.summary .is-in.neutral {
+    color: darkgray;
+}
+
+.summary .past-games a {
+    color: inherit;
+}
+
+.summary .past-games a:hover > div {
+    background: #eee;
+}
+
 /* players */
 
 div.players .circular,
@@ -171,6 +221,7 @@ div.players a,
     opacity: 0.6;
 }
 
+.cup-game > .col-md-4 span:not(:first-of-type),
 .league-game > .col-md-4 span:not(:first-of-type),
 .tryout > .col-md-4 span:not(:first-of-type),
 .training span:not(:first-of-type) {
@@ -179,23 +230,26 @@ div.players a,
     padding: 10px 0;
 }
 
+.cup-game > .col-md-4 span.border-bottom,
 .league-game > .col-md-4 span.border-bottom,
 .tryout > .col-md-4 span.border-bottom,
 .training span.border-bottom {
     border-bottom: 1px solid;
 }
 
+.cup-game.home > .col-md-4 span:not(:first-of-type),
 .league-game.home > .col-md-4 span:not(:first-of-type),
 .tryout.home > .col-md-4 span:not(:first-of-type) {
     border-color: rgb(134, 197, 165);
 }
 
+.cup-game.away > .col-md-4 span:not(:first-of-type),
 .league-game.away > .col-md-4 span:not(:first-of-type),
 .tryout.away > .col-md-4 span:not(:first-of-type) {
     border-color: rgb(153, 190, 197);
 }
 
-
+.cup-game,
 .league-game,
 .tryout,
 .training .col-md-12,
@@ -218,26 +272,32 @@ div.players a,
     padding: 10px;
 }
 
-.league-game, .tryout {
+.cup-game,
+.league-game,
+.tryout {
     margin-top: 10px !important;
 }
 
+.cup-game > .col-md-4,
 .league-game > .col-md-4,
 .tryout > .col-md-4 {
     padding: 10px;
     color: white;
 }
 
+.cup-game.home > .col-md-4,
 .league-game.home > .col-md-4,
 .tryout.home > .col-md-4 {
     background: rgb(107, 169, 137);
 }
 
+.cup-game.home,
 .league-game.home,
 .tryout.home {
     border-color: rgb(107, 169, 137);
 }
 
+.cup-game.home:after,
 .league-game.home:after,
 .tryout.home:after {
     display: block;
@@ -257,16 +317,19 @@ div.players a,
     letter-spacing: 2px;
 }
 
+.cup-game.away > .col-md-4,
 .league-game.away > .col-md-4,
 .tryout.away > .col-md-4 {
     background: rgb(65, 142, 169);
 }
 
+.cup-game.away,
 .league-game.away,
 .tryout.away {
     border-color: rgb(65, 142, 169);
 }
 
+.cup-game.away:after,
 .league-game.away:after,
 .tryout.away:after {
     display: block;
@@ -497,6 +560,7 @@ h1.page-title {
     width: 100%;
     padding: 10px 15px;
     text-shadow: 0px 0px 15px #484848;
+    margin-left: -15px;
 }
 
 .row.page-title {
@@ -606,6 +670,10 @@ footer textarea {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.droppable li.draggable {
+    height: auto !important;
 }
 
 .draggable:hover {

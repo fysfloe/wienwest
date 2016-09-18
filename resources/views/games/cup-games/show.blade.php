@@ -71,7 +71,7 @@
 				<p>Wird noch bekannt gegeben.</p>
 			@endif
 			@if(Auth::user()->hasRole('admin') && !isset($past_game))
-				<a class="btn btn-default" href="{{ route('lineup', 'cup_games', $game->id) }}"><i class="fa fa-btn fa-users"></i> Aufstellung</a>
+				<a class="btn btn-default" href="{{ route('lineup', array('cup_games', $game->id)) }}"><i class="fa fa-btn fa-users"></i> Aufstellung</a>
 			@endif
 		</div>
 		@if(!isset($past_game))

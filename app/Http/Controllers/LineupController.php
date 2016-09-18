@@ -4,6 +4,7 @@ namespace WienWest\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use WienWest\CupGame;
 use WienWest\Http\Requests;
 
 use WienWest\LeagueGame;
@@ -25,6 +26,7 @@ class LineupController extends Controller
                 $game = LeagueGame::with('ins')->with('lineup')->find($id);
                 break;
             case 'cup_games':
+                $game = CupGame::with('ins')->with('lineup')->find($id);
                 break;
             default:
                 break;
@@ -63,6 +65,7 @@ class LineupController extends Controller
                 $game = LeagueGame::find($id);
                 break;
             case 'cup_games':
+                $game = CupGame::find($id);
                 break;
             default:
                 $game = null;

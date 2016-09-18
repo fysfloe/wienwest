@@ -1,7 +1,7 @@
-<ul class="league-games games @if(isset($past_games)) past-games @endif">
+<ul class="cup-games games @if(isset($past_games)) past-games @endif">
     @foreach($games as $game)
-        <a href="{{ route('league_games.show', $game->id) }}">
-            <li class="league-game row flex @if($game->home) home @else away @endif">
+        <a href="{{ route('cup_games.show', $game->id) }}">
+            <li class="cup-game row flex @if($game->home) home @else away @endif">
                 <div class="col-md-4">
                     <span class="date-big">{{ date_format(new DateTime($game->date), 'D, d.m.Y') }}</span><br>
                     <span class="start-time border-bottom"><strong><i class="fa fa-clock-o"></i> Anpfiff: </strong>{{ date_format(new DateTime($game->start_time), 'H:i') }}</span>
@@ -21,9 +21,9 @@
             </button>
             <ul class="dropdown-menu">
                 <li><a data-toggle="modal" data-target="#edit-result-{{$game->id}}"><i class="fa fa-btn fa-futbol-o"></i> Ergebnis eintragen</a></li>
-                <li><a href="{{ route('league_games.edit', $game->id) }}"><i class="fa fa-btn fa-edit"></i> Bearbeiten</a></li>
+                <li><a href="{{ route('cup_games.edit', $game->id) }}"><i class="fa fa-btn fa-edit"></i> Bearbeiten</a></li>
                 <li>
-                    {!! Form::open(array('onsubmit' => 'return confirm("Willst du dieses Spiel wirklich löschen?")', 'class' => 'form-inline', 'method' => 'DELETE', 'route' => array('league_games.destroy', $game->id))) !!}
+                    {!! Form::open(array('onsubmit' => 'return confirm("Willst du dieses Spiel wirklich löschen?")', 'class' => 'form-inline', 'method' => 'DELETE', 'route' => array('cup_games.destroy', $game->id))) !!}
                     <button type="submit" class="btn btn-danger"><i class="fa fa-btn fa-trash"></i> Löschen</button>
                     {!! Form::close() !!}
                 </li>
@@ -35,7 +35,7 @@
 
                 <!-- Modal content-->
                 <div class="modal-content">
-                    {!! Form::open(array('method' => 'POST', 'route' => array('league_games.edit_result', $game->id))) !!}
+                    {!! Form::open(array('method' => 'POST', 'route' => array('cup_games.edit_result', $game->id))) !!}
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                         <h4 class="modal-title">Ergebnis eintragen</h4>
