@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-	@if (count($errors) > 0)
+	@if (count($errors->tryout_create) > 0)
 		<div class="alert alert-danger">
 			<strong>Herst!</strong> Füll' das gfälligst richtig aus!<br><br>
 			<ul>
-				@foreach ($errors->all() as $error)
+				@foreach ($errors->tryout_create->all() as $error)
 					<li>{{ $error }}</li>
 				@endforeach
 			</ul>

@@ -14,11 +14,11 @@
 			</div>
 			<div class="post-reply row">
 				<h3>Wie schauma aus?</h3>
-				@if (count($errors) > 0)
+				@if (count($errors->reply) > 0)
 					<div class="alert alert-danger">
 						<strong>Herst!</strong> Füll' das gfälligst richtig aus!<br><br>
 						<ul>
-							@foreach ($errors->all() as $error)
+							@foreach ($errors->reply->all() as $error)
 								<li>{{ $error }}</li>
 							@endforeach
 						</ul>

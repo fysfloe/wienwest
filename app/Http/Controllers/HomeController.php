@@ -2,6 +2,7 @@
 
 namespace WienWest\Http\Controllers;
 
+use Illuminate\Support\Facades\Mail;
 use WienWest\CupGame;
 use WienWest\Http\Requests;
 use Illuminate\Http\Request;
@@ -9,6 +10,9 @@ use Auth;
 use Spatie\Permission\Models\Role;
 use WienWest\LeagueGame;
 use WienWest\Training;
+use Validator;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Redirect;
 
 class HomeController extends Controller
 {
@@ -17,6 +21,19 @@ class HomeController extends Controller
         'maybe' => 'Du bist vielleicht dabei.',
         'out' => 'Du bist nicht dabei.',
         'not' => 'Bitte gib Bescheid, ob du dabei bist.'
+    ];
+
+    protected $contact_rules = [
+        'contact-name' => 'required',
+        'contact-email' => 'required|email',
+        'contact-message' => 'required',
+    ];
+
+    protected $contact_messages = [
+        'contact-name.required' => 'Wer bist du?',
+        'contact-email.required' => 'Was ist deine E-Mail-Adresse?',
+        'contact-email.email' => 'Komm schon, gib eine ordentliche Mail-Adresse ein...',
+        'contact-message.required' => 'Was willst du?',
     ];
 
     /**
@@ -124,5 +141,25 @@ class HomeController extends Controller
     public function imprint()
     {
         return view('imprint');
+    }
+
+    public function contact()
+    {
+        $validator = Validator::make(Input::all(), $this->contact_rules, $this->contact_messages);
+
+        if($validator->passes()) {
+            $email = Input::get('contact-email');
+
+            Mail::send(['text' => 'emails.contact'], ['input' => Input::all()], function($m) use ($email) {
+                $m->from($email, 'FC Wien West');
+                $m->replyTo($email);
+
+                $m->to('florian.csizmazia@gmail.com', 'Florian Csizmazia')->subject('Nachricht auf fcwienwest.at Intern');
+            });
+
+            return Redirect::back()->with('success', 'Dank und Anerkennung für deine Nachricht!');
+        }
+
+        return Redirect::back()->withErrors($validator, 'contact')->withInput();
     }
 }

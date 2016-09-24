@@ -3,11 +3,11 @@
 @section('content')
 	<div class="cup-games games">
 		@if(Auth::user()->hasRole('admin'))
-			@if ($errors->get('home_team') || $errors->get('away_team'))
+			@if ($errors->cup_game_edit_result->get('home_team') || $errors->cup_game_edit_result->get('away_team'))
 				<div class="alert alert-danger">
 					<strong>Herst!</strong> Fehler beim Ergebnis eintragen! Versuch's noch einmal.<br><br>
 					<ul>
-						@foreach ($errors->all() as $error)
+						@foreach ($errors->cup_game_edit_result->all() as $error)
 							<li>{{ $error }}</li>
 						@endforeach
 					</ul>
@@ -77,11 +77,11 @@
 		@if(!isset($past_game))
 			<div class="post-reply row">
 				<h3>Wie schauma aus?</h3>
-				@if ($errors->get('in'))
+				@if ($errors->reply->get('in'))
 					<div class="alert alert-danger">
 						<strong>Herst!</strong> Füll' das gfälligst richtig aus!<br><br>
 						<ul>
-							<li>{{ $errors->first('in') }}</li>
+							<li>{{ $errors->reply->first('in') }}</li>
 						</ul>
 					</div>
 				@endif

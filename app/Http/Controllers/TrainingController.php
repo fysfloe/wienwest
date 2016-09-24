@@ -114,7 +114,7 @@ class TrainingController extends GameController
             return Redirect::route('trainings.index');
         }
 
-        return Redirect::back()->withErrors($validator)->withInput();
+        return Redirect::back()->withErrors($validator, 'training_create')->withInput();
     }
 
     /**

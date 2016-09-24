@@ -108,7 +108,7 @@ class CupGameController extends GameController
             return Redirect::route('cup_games.index');
         }
 
-        return Redirect::back()->withErrors($validator)->withInput();
+        return Redirect::back()->withErrors($validator, 'cup_game_create')->withInput();
     }
 
     /**
@@ -183,12 +183,16 @@ class CupGameController extends GameController
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, $this->rules, $this->messages);
+        $validator = Validator::make(Input::all(), $this->rules, $this->messages);
 
-        $game = CupGame::find($id);
-        $game->update(Input::all());
+        if($validator->passes()) {
+            $game = CupGame::find($id);
+            $game->update(Input::all());
 
-        return Redirect::route('cup_games.edit', $id)->with('success', 'Spitze! Das Spiel wurde aktualisiert.');
+            return Redirect::route('cup_games.edit', $id)->with('success', 'Spitze! Das Spiel wurde aktualisiert.');
+        }
+
+        return Redirect::back()->withErrors($validator, 'cup_game_update')->withInput();
     }
 
     /**
@@ -234,6 +238,6 @@ class CupGameController extends GameController
             return Redirect::back()->with('success', 'Ergebnis eingetragen.');
         }
 
-        return Redirect::back()->withErrors($validator)->withInput();
+        return Redirect::back()->withErrors($validator, 'cup_game_edit_result')->withInput();
     }
 }

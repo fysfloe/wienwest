@@ -107,7 +107,7 @@ class LeagueGameController extends GameController
             return Redirect::route('league_games.index');
         }
 
-        return Redirect::back()->withErrors($validator)->withInput();
+        return Redirect::back()->withErrors($validator, 'league_game_create')->withInput();
     }
 
     /**
@@ -182,12 +182,16 @@ class LeagueGameController extends GameController
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, $this->rules, $this->messages);
+        $validator = Validator::make(Input::all(), $this->rules, $this->messages);
 
-        $game = LeagueGame::find($id);
-        $game->update(Input::all());
+        if($validator->passes()) {
+            $game = LeagueGame::find($id);
+            $game->update(Input::all());
 
-        return Redirect::route('league_games.edit', $id)->with('success', 'Spitze! Das Spiel wurde aktualisiert.');
+            return Redirect::route('league_games.edit', $id)->with('success', 'Spitze! Das Spiel wurde aktualisiert.');
+        }
+
+        return Redirect::back()->withErrors($validator, 'league_game_update')->withInput();
     }
 
     /**
@@ -233,6 +237,6 @@ class LeagueGameController extends GameController
             return Redirect::back()->with('success', 'Ergebnis eingetragen.');
         }
 
-        return Redirect::back()->withErrors($validator)->withInput();
+        return Redirect::back()->withErrors($validator, 'league_game_edit_result')->withInput();
     }
 }

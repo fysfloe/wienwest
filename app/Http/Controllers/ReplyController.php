@@ -79,7 +79,7 @@ class ReplyController extends Controller
             return Redirect::route($game->getTable().'.show', $game->id);
         }
 
-        return Redirect::back()->withErrors($validator)->withInput();
+        return Redirect::back()->withErrors($validator, 'reply')->withInput();
     }
 
     /**

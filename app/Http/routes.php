@@ -54,4 +54,6 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/getPlayer', 'PlayerController@getPlayer');
 
     Route::get('/imprint', 'HomeController@imprint');
+
+    Route::post('/contactform', 'HomeController@contact');
 });

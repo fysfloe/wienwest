@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-	@if (count($errors) > 0)
+	@if (count($errors->league_game_update) > 0)
 		<div class="alert alert-danger">
 			<strong>Herst!</strong> Füll' das gfälligst richtig aus!<br><br>
 			<ul>
-				@foreach ($errors->all() as $error)
+				@foreach ($errors->league_game_update->all() as $error)
 					<li>{{ $error }}</li>
 				@endforeach
 			</ul>

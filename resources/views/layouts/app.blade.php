@@ -149,6 +149,16 @@
                     </p>
                 </div>
                 <div class="col-md-5 col-md-offset-1 contact-form">
+                    @if (count($errors->contact) > 0)
+                        <div class="alert alert-danger">
+                            <strong>Herst!</strong> Füll' das gfälligst richtig aus!<br><br>
+                            <ul>
+                                @foreach ($errors->contact->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                     <h4>Schreibt's ma wos</h4>
                     {!! Form::open(['method' => 'POST', 'url' => 'contactform', 'class' => 'form-horizontal']) !!}
                     <div class="row">

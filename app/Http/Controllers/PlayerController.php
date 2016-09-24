@@ -119,7 +119,7 @@ class PlayerController extends Controller
         if ($validator->passes()) {
             if (Player::where('number', Input::get('number'))->first()) {
                 $validator->getMessageBag()->add('number-exists', 'Die Nummer hat schon jemand anderer!');
-                return Redirect::back()->withErrors($validator)->withInput();
+                return Redirect::back()->withErrors($validator, 'player_create')->withInput();
             } else {
                 $player = Input::all();
                 $player['user_id'] = $user->id;
@@ -130,7 +130,7 @@ class PlayerController extends Controller
             }
         }
 
-        return Redirect::back()->withErrors($validator)->withInput();
+        return Redirect::back()->withErrors($validator, 'player_create')->withInput();
     }
 
     /**
@@ -186,12 +186,16 @@ class PlayerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, $this->rules, $this->messages);
+        $validator = Validator::make(Input::all(), $this->rules, $this->messages);
 
-        $player = Player::find($id);
-        $player->update(Input::all());
+        if($validator->passes()) {
+            $player = Player::find($id);
+            $player->update(Input::all());
 
-        return Redirect::route('players.edit', $id)->with('success', 'Spitze! Dein Profil wurde aktualisiert.');
+            return Redirect::route('players.edit', $id)->with('success', 'Spitze! Dein Profil wurde aktualisiert.');
+        }
+
+        return Redirect::back()->withErrors($validator, 'player_update')->withInput();
     }
 
     public function changePassword(Request $request, $id)
@@ -202,7 +206,7 @@ class PlayerController extends Controller
             $user = Player::find($id)->user()->first();
             if(!Hash::check(Input::get('old_password'), $user->password)) {
                 $validator->getMessageBag()->add('wrong-password', 'Das ist nicht dein altes Passwort...');
-                return Redirect::back()->withErrors($validator)->withInput();
+                return Redirect::back()->withErrors($validator, 'password_change')->withInput();
             } else {
                 $user->password = Hash::make($request->input('changed_password'));
                 $user->update();
@@ -210,7 +214,7 @@ class PlayerController extends Controller
             }
         }
 
-        return Redirect::back()->withErrors($validator)->withInput();
+        return Redirect::back()->withErrors($validator, 'password_change')->withInput();
     }
 
     /**

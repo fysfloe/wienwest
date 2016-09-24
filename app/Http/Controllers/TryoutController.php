@@ -104,7 +104,7 @@ class TryoutController extends GameController
             return Redirect::route('tryouts.index');
         }
 
-        return Redirect::back()->withErrors($validator)->withInput();
+        return Redirect::back()->withErrors($validator, 'tryout_create')->withInput();
     }
 
     /**
@@ -179,12 +179,16 @@ class TryoutController extends GameController
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, $this->rules, $this->messages);
+        $validator = Validator::make(Input::all(), $this->rules, $this->messages);
 
-        $game = Tryout::find($id);
-        $game->update(Input::all());
+        if($validator->passes()) {
+            $game = Tryout::find($id);
+            $game->update(Input::all());
 
-        return Redirect::route('tryouts.edit', $id)->with('success', 'Spitze! Das Spiel wurde aktualisiert.');
+            return Redirect::route('tryouts.edit', $id)->with('success', 'Spitze! Das Spiel wurde aktualisiert.');
+        }
+
+        return Redirect::back()->withErrors($validator, 'tryout_update')->withInput();
     }
 
     /**
@@ -230,6 +234,6 @@ class TryoutController extends GameController
             return Redirect::back()->with('success', 'Ergebnis eingetragen.');
         }
 
-        return Redirect::back()->withErrors($validator)->withInput();
+        return Redirect::back()->withErrors($validator, 'tryout_edit_result')->withInput();
     }
 }
