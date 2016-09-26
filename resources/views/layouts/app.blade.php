@@ -16,7 +16,7 @@
     <link href="{{ asset('/css/bootstrap-datetimepicker.min.css') }}" rel="stylesheet">
 
     {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
-
+    <link href="{{ asset('css/quill.snow.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('css/wienwest.css') }}" rel="stylesheet" type="text/css">
 
     <style>
@@ -54,6 +54,7 @@
                 <li><a href="{{ url('/tryouts') }}">Testspiele</a></li>
                 <li><a href="{{ url('/trainings') }}">Trainings</a></li>
                 <li><a href="{{ url('/players') }}">Spieler</a></li>
+                <li><a href="{{ url('/announcements') }}">Ankündigungen</a></li>
             </ul>
 
             <!-- Right Side Of Navbar -->
@@ -196,10 +197,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <script src="http://code.jquery.com/ui/1.11.3/jquery-ui.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-<script src="{{ asset('/js/moment.min.js') }}"></script>
+<script src="{{ asset('/js/moment-with-locales.js') }}"></script>
 <script type="text/javascript" src="{{ asset('/js/bootstrap-datetimepicker.min.js') }}"></script>
 <script src="{{ asset('js/bootstrap-switch.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('js/bootbox.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('js/quill.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('js/wienwest.js') }}" type="text/javascript"></script>
 {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
 </body>

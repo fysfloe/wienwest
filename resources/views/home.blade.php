@@ -55,7 +55,7 @@
                 </a>
             @endif
             @if(isset($past_cup_game))
-                    <a href="{{ route('league_games.show', $past_cup_game->id) }}">
+                    <a href="{{ route('cup_games.show', $past_cup_game->id) }}">
                         <div class="col-md-6">
                             <h4>Letztes Cupspiel</h4>
                             <span class="date-big">{{ date_format(new DateTime($past_cup_game->date), 'D, d.m.Y') }}, {{ date_format(new DateTime($past_cup_game->start_time), 'H:i') }}</span>

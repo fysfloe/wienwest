@@ -31,7 +31,8 @@ jQuery(function($) {
     var home_switch = $('.bootstrap-switch');
 
     $('input[name="date"]').datetimepicker({
-        format: 'YYYY-MM-DD'
+        format: 'YYYY-MM-DD',
+        locale: moment.locale('de'),
     });
     var start_time = $('input[name="start_time"]');
     var meeting_time = $('input[name="meeting_time"]');
@@ -210,4 +211,17 @@ jQuery(function($) {
     game_lineup.on('hidden.bs.collapse', function () {
         $("#game-lineup-arrow").removeClass("fa-angle-down").addClass("fa-angle-right");
     });
+
+    if($('#quill-text').length > 0) {
+        var quill = new Quill('#quill-text', {
+            placeholder: 'Wos wüst?',
+            theme: 'snow'
+        });
+
+        $('.ql-editor').html($('#text').val());
+
+        quill.on('text-change', function() {
+            $('#text').val($('.ql-editor').html());
+        });
+    }
 });

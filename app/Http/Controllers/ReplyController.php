@@ -67,11 +67,12 @@ class ReplyController extends Controller
 
             $reply = Reply::create($reply_input);
 
-            if($player = $game->participants()->where('user_id', $user->id)->first()) {
-                $player->pivot->update(array('in' => $reply->in));
-                //$league_game->participants()->associate($player, array('in' => $reply->in))->save();
-            } else {
-                $game->participants()->attach($user->player()->first(), array('in' => $reply->in));
+            if($class_name != 'WienWest\Announcement') {
+                if($player = $game->participants()->where('user_id', $user->id)->first()) {
+                    $player->pivot->update(array('in' => $reply->in));
+                } else {
+                    $game->participants()->attach($user->player()->first(), array('in' => $reply->in));
+                }
             }
 
             $game->replies()->save($reply);

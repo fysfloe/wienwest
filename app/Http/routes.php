@@ -43,6 +43,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::resource('cup_games', 'CupGameController');
         Route::resource('trainings', 'TrainingController');
         Route::resource('replies', 'ReplyController');
+        Route::resource('announcements', 'AnnouncementController');
     });
 });
 

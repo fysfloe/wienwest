@@ -151,7 +151,7 @@ class HomeController extends Controller
             $email = Input::get('contact-email');
 
             Mail::send(['text' => 'emails.contact'], ['input' => Input::all()], function($m) use ($email) {
-                $m->from($email, 'FC Wien West');
+                $m->from('admin@fcwienwest.at', 'FC Wien West');
                 $m->replyTo($email);
 
                 $m->to('florian.csizmazia@gmail.com', 'Florian Csizmazia')->subject('Nachricht auf fcwienwest.at Intern');
