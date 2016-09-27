@@ -3,6 +3,7 @@
 namespace WienWest\Http\Controllers;
 
 use Illuminate\Support\Facades\Mail;
+use WienWest\Announcement;
 use WienWest\CupGame;
 use WienWest\Http\Requests;
 use Illuminate\Http\Request;
@@ -126,6 +127,9 @@ class HomeController extends Controller
             }
         }
 
+        $announcements = Announcement::orderBy('created_at', 'DESC')->take(3)->get();
+
+        $view_variables['announcements'] = $announcements;
         $view_variables['title'] = 'Homebase';
 
         return view('home')->with($view_variables);

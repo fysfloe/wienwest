@@ -4,12 +4,10 @@
 	<div class="announcements">
 		<a href="{{ route('announcements.index') }}" class="link-back"><i class="fa fa-chevron-left"></i> Alle Ankündigungen</a>
 
-		<div class="announcement reply row">
-				<div class="row flex">
-					<div class="col-md-1">
+		<div class="announcement single reply row">
+				<div class="row">
+					<div class="col-md-3">
 						<div class="circular" style="background-image:url({{ asset('img/cartoons') . '/' . $announcement->user->player->avatar . '.png' }})"></div>
-					</div>
-					<div class="col-md-2">
 						<div class="username">{{ $announcement->user->player->firstname }} {{ $announcement->user->player->surname[0] }}.</div>
 					</div>
 					<div class="col-md-9">

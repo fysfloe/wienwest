@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-	@if(Auth::user()->hasRole('admin')) <a class="btn btn-success" href="{{ route('announcements.create') }}"><i class="fa fa-btn fa-plus-circle"></i> Neue Anknündigung erstellen</a> @endif
+	@if(Auth::user()->hasRole('admin')) <a class="btn btn-success new-announcement" href="{{ route('announcements.create') }}"><i class="fa fa-btn fa-plus-circle"></i> Neue Anknündigung erstellen</a> @endif
 
 	<ul class="announcements">
 		@foreach($announcements as $announcement)
@@ -26,10 +26,9 @@
 							<span>am</span> {{ date_format(new DateTime($announcement->created_at), 'd.m.Y') }} <span>um</span> {{ date_format(new DateTime($announcement->created_at), 'H:i') }}
 						</div>
 					</div>
-					@if(Auth::user()->hasRole('admin') && Auth::user()->id == $announcement->user_id)
-							<!-- Single button -->
 				</li>
 			</a>
+			@if(Auth::user()->hasRole('admin') && Auth::user()->id == $announcement->user_id)
 			<div class="btn-group">
 				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					<i class="fa fa-btn fa-gear"></i> <span class="caret"></span>

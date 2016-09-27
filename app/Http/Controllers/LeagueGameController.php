@@ -120,7 +120,6 @@ class LeagueGameController extends GameController
     {
         $game = LeagueGame::find($id);
         $players_in = $game->ins()->get();
-        dd($players_in);
         $players_maybe = $game->maybes()->get();
         $players_out = $game->outs()->get();
 

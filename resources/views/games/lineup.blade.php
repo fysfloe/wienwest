@@ -19,7 +19,7 @@
     {!! Form::model(new WienWest\Lineup, ['route' => ['lineup.save',$game_type, $game_id], 'class' => 'form-horizontal']) !!}
     <div class="form-group">
         {!! Form::label('mode', 'Modus', array('class' => 'col-md-4 control-label')) !!}
-        <div class="col-md-6">{!! Form::select('mode', array('4-2-3-1' => '4-2-3-1', '4-3-3' => '4-3-3'), isset($lineup->mode) ? $lineup->mode : '4-2-3-1', array('class' => 'form-control')) !!}</div>
+        <div class="col-md-6">{!! Form::select('mode', array('4-2-3-1' => '4-2-3-1', '4-3-3' => '4-3-3', '4-4-2' => '4-4-2', '4-1-3-2' => '4-1-3-2'), isset($lineup->mode) ? $lineup->mode : '4-2-3-1', array('class' => 'form-control')) !!}</div>
     </div>
 
     <hr>
@@ -28,6 +28,8 @@
 
             @include('games.lineups.droppable.4-2-3-1', isset($lineup) ? array('lineup' => $lineup) : array())
             @include('games.lineups.droppable.4-3-3', isset($lineup) ? array('lineup' => $lineup) : array())
+            @include('games.lineups.droppable.4-4-2', isset($lineup) ? array('lineup' => $lineup) : array())
+            @include('games.lineups.droppable.4-1-3-2', isset($lineup) ? array('lineup' => $lineup) : array())
 
             @include('games.lineups.droppable.bench', isset($lineup) ? array('lineup' => $lineup) : array())
     </div>
