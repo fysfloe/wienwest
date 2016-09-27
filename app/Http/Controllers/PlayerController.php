@@ -82,7 +82,6 @@ class PlayerController extends Controller
 
         return view('players.index')->with([
             'players' => $players,
-            'sidebar' => true,
         ]);
     }
 

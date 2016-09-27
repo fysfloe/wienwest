@@ -26,8 +26,24 @@
 							<span>am</span> {{ date_format(new DateTime($announcement->created_at), 'd.m.Y') }} <span>um</span> {{ date_format(new DateTime($announcement->created_at), 'H:i') }}
 						</div>
 					</div>
+					@if(Auth::user()->hasRole('admin') && Auth::user()->id == $announcement->user_id)
+							<!-- Single button -->
 				</li>
 			</a>
+			<div class="btn-group">
+				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					<i class="fa fa-btn fa-gear"></i> <span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu">
+					<li><a href="{{ route('announcements.edit', $announcement->id) }}"><i class="fa fa-btn fa-edit"></i> Bearbeiten</a></li>
+					<li>
+						{!! Form::open(array('onsubmit' => 'return confirm("Willst du diese Ankündigung wirklich löschen?")', 'class' => 'form-inline', 'method' => 'DELETE', 'route' => array('announcements.destroy', $announcement->id))) !!}
+						<button type="submit" class="btn btn-danger"><i class="fa fa-btn fa-trash"></i> Löschen</button>
+						{!! Form::close() !!}
+					</li>
+				</ul>
+			</div>
+			@endif
 		@endforeach
 	</ul>
 

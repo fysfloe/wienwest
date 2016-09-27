@@ -136,8 +136,9 @@
                         <li><a href="{{ route('tryouts.index') }}">Testspiele</a></li>
                         <li><a href="{{ route('trainings.index') }}">Trainings</a></li>
                         <li><a href="{{ route('players.index') }}">Spieler</a></li>
-                        <li><a href="{{ url('contact') }}">Kontakt</a></li>
-                        <li><a href="{{ url('imprint') }}">Impressum</a></li>
+                        <li><a href="{{ route('announcements.index') }}">Ankündigungen</a></li>
+                        <!--<li><a href="{{ url('contact') }}">Kontakt</a></li>
+                        <li><a href="{{ url('imprint') }}">Impressum</a></li>-->
                     </ul>
                 </div>
                 <div class="col-md-4">

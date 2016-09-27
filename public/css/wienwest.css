@@ -54,7 +54,8 @@ div.big-number {
     margin-right: 10px;
 }
 
-.alert-success {
+.alert-success,
+.alert-warning {
     margin-left: -15px;
 }
 
@@ -196,7 +197,8 @@ div.players a,
 .replies,
 .max-players,
 .other-players,
-.announcements {
+.announcements,
+.other-announcements {
     padding: 0;
     list-style: none;
 }
@@ -743,15 +745,21 @@ a.remove-player {
     text-decoration: none
 }
 
-.announcements > a:hover li.announcement .row.flex {
+.announcements > a:hover li.announcement .row.flex,
+.other-announcements .announcement a:hover .row:first-of-type {
     border-top: 2px solid #337ab7;
+}
+
+.other-announcements .announcement .row:first-of-type {
+    border-top: 2px solid dimgray;
 }
 
 .announcement .created-at > div:first-of-type {
     text-align: left;
 }
 
-.announcements > a:hover .announcement h4 {
+.announcements > a:hover .announcement h4,
+.other-announcements a:hover h5 {
     color: #337ab7;
 }
 
@@ -759,8 +767,28 @@ li.announcement h4 {
     color: black;
 }
 
+.announcements .btn-group {
+    position: relative;
+    top: -20px;
+}
+
+.other-announcements .announcement {
+    border: 1px dotted lightgray;
+    border-top: none;
+}
+
+.other-announcements h5 {
+    color: black;
+    font-weight: bold;
+    margin: 15px 0;
+}
+
 .ql-snow .ql-out-bottom, .ql-snow .ql-out-top {
     visibility: visible;
+}
+
+.ql-tooltip.ql-editing {
+    z-index: 10;
 }
 
 div#quill-text {

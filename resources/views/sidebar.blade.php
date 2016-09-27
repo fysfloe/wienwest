@@ -36,3 +36,7 @@
     @if (isset($change_password))
         @include('sidebar.change_password')
     @endif
+
+    @if (isset($other_announcements))
+        @include('sidebar.other_announcements')
+    @endif

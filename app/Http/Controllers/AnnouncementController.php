@@ -33,11 +33,10 @@ class AnnouncementController extends GameController
      */
     public function index()
     {
-        $announcements = Announcement::all();
+        $announcements = Announcement::orderBy('created_at', 'DESC')->get();
 
         $view_variables = [
             'title' => 'Ankündigungen',
-            'sidebar' => true,
             'announcements' => $announcements,
         ];
 
@@ -74,7 +73,7 @@ class AnnouncementController extends GameController
         if($validator->passes()) {
             $announcement = Input::all();
             $announcement['user_id'] = $user->id;
-            $announcement['text'] = clean(Input::get('text'));
+            $announcement['text'] = str_replace('<p><br></p>', '', clean(Input::get('text')));
 
             Announcement::create($announcement);
 
@@ -98,12 +97,15 @@ class AnnouncementController extends GameController
 
         $replies = $announcement->replies()->where('content', '!=', '')->orderBy('created_at', 'desc')->with('user.player')->paginate(10);
 
+        $other_announcements = Announcement::where('id', '!=', $id)->take(30)->get();
+
         $view_variables = [
             'reply' => $reply,
             'replies' => $replies,
             'title' => 'Ankündigung / ' . $announcement->title,
             'sidebar' => true,
             'announcement' => $announcement,
+            'other_announcements' => $other_announcements
         ];
 
         return view('announcements.show')->with($view_variables);

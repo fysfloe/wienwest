@@ -14,7 +14,7 @@
 					</div>
 					<div class="col-md-9">
 						<h3>{{ $announcement->title }}</h3>
-						{!! ($announcement->text) !!}
+						{!! str_replace('<p><br></p>', '', $announcement->text) !!}
 					</div>
 				</div>
 				<div class="row created-at">
