@@ -98,6 +98,7 @@ div.big-number {
     display: block;
     width: 50%;
     color: white;
+    padding: 2px 5px;
 }
 
 .summary .is-in.in {
@@ -608,7 +609,7 @@ nav.navbar.navbar-default {
 }
 
 .navbar-default .navbar-nav>.active>a:after,
-.navbar-default .navbar-nav a:hover:after {
+.navbar-default .navbar-nav.navbar-left a:hover:after {
     display: block;
     content: "";
     height: 3px;
@@ -896,8 +897,113 @@ a.link-back:hover {
     color: #337ab7;
 }
 
+/* error 404 */
+.error-404 h2 {
+    text-align: center;
+    font-weight: 100;
+    margin-top: 0;
+}
+
+.error-404 h1 {
+    text-align: center;
+    font-size: 10em;
+    color: #d14859;
+    font-weight: 100;
+}
+
 @media screen and (min-width: 768px) {
     .navbar-brand, .navbar-left, .navbar-right.logged-out {
         padding: 10px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    h1.page-title {
+        position: relative;
+        top: 0;
+        text-shadow: none;
+        color: #666;
+        font-size: 2em;
+    }
+
+    .header-image-wrap,
+    .navbar-brand>img {
+        display: none;
+    }
+
+    .games .flex,
+    .reply .flex {
+        display: block;
+    }
+
+    .col-md-8.teams.flex {
+        padding: 20px 0 40px;
+    }
+
+    .col-md-8.teams.flex span {
+        display: block;
+        text-align: center;
+    }
+
+    .cup-game.away:after, .league-game.away:after, .tryout.away:after {
+        position: relative;
+        transform: none;
+        left: 50%;
+        margin-left: -60px;
+        top: 0;
+    }
+
+    .cup-game.home:after, .league-game.home:after, .tryout.home:after {
+        position: relative;
+        transform: none;
+        left: 50%;
+        margin-left: -40px;
+        top: 0;
+    }
+
+    .big-number {
+        padding: 0 10px;
+    }
+
+    .reply .username {
+        text-align: center;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #eee;
+        margin-bottom: 10px;
+    }
+
+    .navbar-default .navbar-nav>.active>a:after, .navbar-default .navbar-nav.navbar-left a:hover:after {
+        bottom: 0;
+    }
+
+    .main-content .avatar-cartoons .row {
+        margin-bottom: 0;
+    }
+
+    .avatar-cartoons {
+        width: 100%;
+        padding-bottom: 20px;
+    }
+
+    .announcement.single {
+        display: block;
+    }
+
+    .announcement.single .col-md-3 {
+        width: 100%;
+        border-right: 0;
+    }
+
+    .announcement.single .col-md-3,
+    .announcement.single .col-md-9 {
+        display: block;
+        float: left;
+    }
+
+    .summary > .row.next-games > .col-md-4:not(:last-of-type), .summary .past-games a > div:not(:last-of-type) {
+        border-right: none;
+        margin-bottom: 25px;
+        border-bottom: 2px solid;
+        padding-bottom: 25px;
     }
 }

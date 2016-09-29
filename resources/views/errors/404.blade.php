@@ -5,18 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>FC Wien West | Intern</title>
+    <title>FC Wien West | 404</title>
 
     <!-- Fonts -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,600,700,400italic' rel='stylesheet' type='text/css'>
     <!-- Styles -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-    <link href="{{ asset('css/bootstrap-switch.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('/css/bootstrap-datetimepicker.min.css') }}" rel="stylesheet">
-
-    {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
-    <link href="{{ asset('css/quill.snow.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('css/wienwest.css') }}" rel="stylesheet" type="text/css">
 
     <style>
@@ -27,44 +22,40 @@
 </head>
 <body id="app-layout">
 <header role="banner">
-<nav class="navbar navbar-default" role="navigation">
-    <div class="container">
-        @include('layouts.nav')
-    </div>
-</nav>
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container">
+            @include('layouts.nav')
+        </div>
+    </nav>
 
-<div class="header-image-wrap">
-    <img src="{{ asset('img/header_1600x400.jpg') }}" class="header-image" alt="Wien West">
-</div>
+    <div class="header-image-wrap">
+        <img src="{{ asset('img/header_1600x400.jpg') }}" class="header-image" alt="Wien West">
+    </div>
 </header>
 
 <main role="main">
-<div class="container">
-    @if(isset($title))
-        <div class="row page-title">
-            <h1 class="page-title">{{ $title }}</h1>
-        </div>
-    @endif
-    @if(Session::has('message') || Session::has('success'))
-        <div class="container">
-            <div class="alert alert-{{ Session::has('success') ? 'success' : (Session::has('message') ? 'warning' : '') }}">
-                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                <strong>{{ Session::has('message') ? Session::get('message') : Session::get('success') }}</strong>
-            </div>
-        </div>
-    @endif
-
-    <div class="row">
-        <div class="main-content @if(isset($sidebar)) col-md-9 @else col-md-12 @endif">
-            @yield('content')
-        </div>
-        @if(isset($sidebar))
-            <div class="col-md-3 sidebar" role="complementary">
-                @include('sidebar')
+    <div class="container">
+        @if(isset($title))
+            <div class="row page-title">
+                <h1 class="page-title">{{ $title }}</h1>
             </div>
         @endif
+        @if(Session::has('message') || Session::has('success'))
+            <div class="container">
+                <div class="alert alert-{{ Session::has('success') ? 'success' : (Session::has('message') ? 'warning' : '') }}">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <strong>{{ Session::has('message') ? Session::get('message') : Session::get('success') }}</strong>
+                </div>
+            </div>
+        @endif
+
+        <div class="row">
+            <div class="main-content error-404 col-md-12">
+                <h1>404</h1>
+                <h2>Des gibt's ned!</h2>
+            </div>
+        </div>
     </div>
-</div>
 </main>
 
 @include('layouts.footer')

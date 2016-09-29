@@ -19,10 +19,10 @@
 						</div>
 					</div>
 					<div class="row created-at">
-						<div class="col-md-6">
+						<div class="col-md-6 col-sm-6 col-xs-6">
 							<span>{{ count($announcement->replies) }} @if(count($announcement->replies) != 1) Antworten @else Antwort @endif</span>
 						</div>
-						<div class="col-md-6">
+						<div class="col-md-6 col-sm-6 col-xs-6">
 							<span>am</span> {{ date_format(new DateTime($announcement->created_at), 'd.m.Y') }} <span>um</span> {{ date_format(new DateTime($announcement->created_at), 'H:i') }}
 						</div>
 					</div>
