@@ -35,6 +35,8 @@ class CupGameController extends GameController
         'location.required' => 'Wo spiel\' ma?'
     ];
 
+    protected $active = 'cup_games';
+
     /**
      * Display a listing of the resource.
      *
@@ -50,6 +52,7 @@ class CupGameController extends GameController
             'past' => $past,
             'title' => 'Cupspiele',
             'sidebar' => true,
+            'active' => $this->active
         ];
 
         if(count($upcoming) > 0) {
@@ -80,7 +83,7 @@ class CupGameController extends GameController
     {
         $user = Auth::user();
         if($user->hasRole('admin')) {
-            return view('games.cup-games.create')->with(['title' => 'Cupspiel erstellen', 'sidebar' => true]);
+            return view('games.cup-games.create')->with(['title' => 'Cupspiel erstellen', 'active' => $this->active]);
         } else {
             return Redirect::route('cup_games.index')->with('message', 'Herst! Das darfst du nicht...');
         }
@@ -137,6 +140,7 @@ class CupGameController extends GameController
             'replies' => $replies,
             'title' => 'Cupspiel',
             'sidebar' => true,
+            'active' => $this->active
         ];
 
         $lineup = $game->lineup()->first();
@@ -170,7 +174,7 @@ class CupGameController extends GameController
         if (!$game) {
             return Redirect::back()->with('message', 'Schade. Dieses Spiel existiert wohl nicht...');
         } else {
-            return view('games.cup-games.edit')->with(['game' => $game, 'sidebar' => true, 'title' => 'Cupspiel bearbeiten']);
+            return view('games.cup-games.edit')->with(['game' => $game, 'title' => 'Cupspiel bearbeiten', 'active' => $this->active]);
         }
     }
 

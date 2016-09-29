@@ -79,6 +79,8 @@ class PlayerController extends Controller
         'xavi'
     ];
 
+    protected $active = 'players';
+
     /**
      * Display a listing of the resource.
      *
@@ -90,6 +92,7 @@ class PlayerController extends Controller
 
         return view('players.index')->with([
             'players' => $players,
+            'active' => $this->active
         ]);
     }
 
@@ -107,6 +110,7 @@ class PlayerController extends Controller
         } else {
             return view('players.create')->with([
                 'avatars' => $this->avatars,
+                'active' => $this->active
             ]);
         }
     }
@@ -158,7 +162,8 @@ class PlayerController extends Controller
             return view('players.show')->with([
                 'player' => $player,
                 'sidebar' => true,
-                'other_players' => $other_players
+                'other_players' => $other_players,
+                'active' => $this->active
             ]);
         }
     }
@@ -179,7 +184,8 @@ class PlayerController extends Controller
                 'player' => $player,
                 'avatars' => $this->avatars,
                 'change_password' => true,
-                'sidebar' => true
+                'sidebar' => true,
+                'active' => $this->active
             ]);
         }
     }

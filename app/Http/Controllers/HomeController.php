@@ -37,6 +37,8 @@ class HomeController extends Controller
         'contact-message.required' => 'Was willst du?',
     ];
 
+    protected $active = 'home';
+
     /**
      * Create a new controller instance.
      *
@@ -131,6 +133,7 @@ class HomeController extends Controller
 
         $view_variables['announcements'] = $announcements;
         $view_variables['title'] = 'Homebase';
+        $view_variables['active'] = $this->active;
 
         return view('home')->with($view_variables);
     }

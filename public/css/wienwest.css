@@ -137,8 +137,13 @@ div.players .circular,
     margin: 0 auto;
 }
 
+.avatar-cartoons {
+    text-align: center;
+}
+
 .avatar-cartoons .circular {
     margin-right: 20px;
+    display: inline-block;
 }
 
 .change_password input {
@@ -587,6 +592,31 @@ h4 {
 nav.navbar.navbar-default {
     margin-bottom: 0;
     background: white;
+}
+
+.navbar-default .navbar-nav>.active>a,
+.navbar-default .navbar-nav>.active>a:hover,
+.navbar-default .navbar-nav>.active>a:focus {
+    background: none;
+    color: #d14859;
+    font-weight: bold;
+}
+
+.navbar-default .navbar-nav>li>a:focus,
+.navbar-default .navbar-nav>li>a:hover {
+    color: #d14859;
+}
+
+.navbar-default .navbar-nav>.active>a:after,
+.navbar-default .navbar-nav a:hover:after {
+    display: block;
+    content: "";
+    height: 3px;
+    position: absolute;
+    background: #d14859;
+    width: 100%;
+    left: 0;
+    bottom: -11px;
 }
 
 h1.page-title {

@@ -38,6 +38,7 @@ class LineupController extends Controller
             'sidebar' => true,
             'title' => 'Aufstellung gegen ' . $game->opponent,
             'players_droppable' => $game->ins,
+            'active' => $game_type
         ];
 
         if($game->lineup) {

@@ -26,6 +26,8 @@ class AnnouncementController extends GameController
         'text.required' => 'Was willst du bitte ankündigen?'
     ];
 
+    protected $active = 'announcements';
+
     /**
      * Display a listing of the resource.
      *
@@ -38,6 +40,7 @@ class AnnouncementController extends GameController
         $view_variables = [
             'title' => 'Ankündigungen',
             'announcements' => $announcements,
+            'active' => $this->active
         ];
 
         return view('announcements.index')->with($view_variables);
@@ -52,7 +55,7 @@ class AnnouncementController extends GameController
     {
         $user = Auth::user();
         if($user->hasRole('admin')) {
-            return view('announcements.create')->with(['title' => 'Ankündigung erstellen', 'sidebar' => true]);
+            return view('announcements.create')->with(['title' => 'Ankündigung erstellen', 'active' => $this->active]);
         } else {
             return Redirect::route('announcements.index')->with('message', 'Herst! Das darfst du nicht...');
         }
@@ -105,7 +108,8 @@ class AnnouncementController extends GameController
             'title' => 'Ankündigung / ' . $announcement->title,
             'sidebar' => true,
             'announcement' => $announcement,
-            'other_announcements' => $other_announcements
+            'other_announcements' => $other_announcements,
+            'active' => $this->active
         ];
 
         return view('announcements.show')->with($view_variables);
@@ -123,7 +127,7 @@ class AnnouncementController extends GameController
         if (!$announcement) {
             return Redirect::back()->with('message', 'Schade. Diese Ankündigung existiert wohl nicht...');
         } else {
-            return view('announcements.edit')->with(['announcement' => $announcement, 'sidebar' => true, 'title' => 'Ankündigung bearbeiten']);
+            return view('announcements.edit')->with(['announcement' => $announcement, 'title' => 'Ankündigung bearbeiten', 'active' => $this->active]);
         }
     }
 

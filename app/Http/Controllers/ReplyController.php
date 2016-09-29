@@ -91,10 +91,7 @@ class ReplyController extends Controller
      */
     public function show($id)
     {
-        $game = LeagueGame::find($id);
-        $participants = $game->participants()->get();
-        $reply = $game->replies()->where('user_id', Auth::user()->id)->last();
-        return view('league-games.show')->with(['game' => $game, 'participants' => $participants, 'reply' => $reply]);
+        //
     }
 
     /**

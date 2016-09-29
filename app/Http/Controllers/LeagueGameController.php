@@ -34,6 +34,8 @@ class LeagueGameController extends GameController
         'location.required' => 'Wo spiel\' ma?'
     ];
 
+    protected $active = 'league_games';
+
     /**
      * Display a listing of the resource.
      *
@@ -42,13 +44,14 @@ class LeagueGameController extends GameController
     public function index()
     {
         $upcoming = LeagueGame::where('date', '>=', date('Y-m-d'))->orderBy('date', 'asc')->get();
-        $past = LeagueGame::where('date', '<', date('Y-m-d'))->orderBy('date', 'asc')->get();
+        $past = LeagueGame::where('date', '<', date('Y-m-d'))->orderBy('date', 'desc')->get();
 
         $view_variables = [
             'upcoming' => $upcoming,
             'past' => $past,
             'title' => 'Meisterschaftsspiele',
             'sidebar' => true,
+            'active' => $this->active
         ];
 
         if(count($upcoming) > 0) {
@@ -79,7 +82,7 @@ class LeagueGameController extends GameController
     {
         $user = Auth::user();
         if($user->hasRole('admin')) {
-            return view('games.league-games.create')->with(['title' => 'Meisterschaftsspiel erstellen', 'sidebar' => true]);
+            return view('games.league-games.create')->with(['title' => 'Meisterschaftsspiel erstellen', 'active' => $this->active]);
         } else {
             return Redirect::route('league_games.index')->with('message', 'Herst! Das darfst du nicht...');
         }
@@ -136,6 +139,7 @@ class LeagueGameController extends GameController
             'replies' => $replies,
             'title' => 'Meisterschaftsspiel / ' . $game->round . '. Runde',
             'sidebar' => true,
+            'active' => $this->active
         ];
 
         $lineup = $game->lineup()->first();
@@ -169,7 +173,7 @@ class LeagueGameController extends GameController
         if (!$game) {
             return Redirect::back()->with('message', 'Schade. Dieses Spiel existiert wohl nicht...');
         } else {
-            return view('games.league-games.edit')->with(['game' => $game, 'sidebar' => true, 'title' => 'Meisterschaftsspiel bearbeiten']);
+            return view('games.league-games.edit')->with(['game' => $game, 'active' => $this->active, 'title' => 'Meisterschaftsspiel bearbeiten']);
         }
     }
 

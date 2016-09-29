@@ -32,6 +32,8 @@ class TrainingController extends GameController
         'location.required' => 'Wo trainier\' ma?'
     ];
 
+    protected $active = 'trainings';
+
     /**
      * Display a listing of the resource.
      *
@@ -46,7 +48,8 @@ class TrainingController extends GameController
             'upcoming' => $upcoming,
             'past' => $past,
             'title' => 'Trainings',
-            'sidebar' => true
+            'sidebar' => true,
+            'active' => $this->active
         ];
 
         if(count($upcoming) > 0) {
@@ -77,7 +80,7 @@ class TrainingController extends GameController
     {
         $user = Auth::user();
         if($user->hasRole('admin')) {
-            return view('games.trainings.create')->with(['title' => 'Training erstellen', 'sidebar' => true]);
+            return view('games.trainings.create')->with(['title' => 'Training erstellen', 'active' => $this->active]);
         } else {
             return Redirect::route('trainings.index')->with('message', 'Herst! Das darfst du nicht...');
         }
@@ -142,7 +145,8 @@ class TrainingController extends GameController
             'players_maybe' => $players_maybe,
             'players_out' => $players_out,
             'title' => 'Training',
-            'sidebar' => true
+            'sidebar' => true,
+            'active' => $this->active
         ];
 
         if($game->date < date('Y-m-d') && $game->start_time < date('H:i')) {

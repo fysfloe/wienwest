@@ -31,6 +31,8 @@ class TryoutController extends GameController
         'location.required' => 'Wo spiel\' ma?'
     ];
 
+    protected $active = 'tryouts';
+
     /**
      * Display a listing of the resource.
      *
@@ -46,6 +48,7 @@ class TryoutController extends GameController
             'past' => $past,
             'title' => 'Testspiele',
             'sidebar' => true,
+            'active' => $this->active
         ];
 
         if(count($upcoming) > 0) {
@@ -76,7 +79,7 @@ class TryoutController extends GameController
     {
         $user = Auth::user();
         if($user->hasRole('admin')) {
-            return view('games.tryouts.create')->with(['title' => 'Testspiel erstellen', 'sidebar' => true]);
+            return view('games.tryouts.create')->with(['title' => 'Testspiel erstellen', 'active' => $this->active]);
         } else {
             return Redirect::route('tryouts.index')->with('message', 'Herst! Das darfst du nicht...');
         }
@@ -132,7 +135,8 @@ class TryoutController extends GameController
             'players_out' => $players_out,
             'replies' => $replies,
             'title' => 'Testspiel',
-            'sidebar' => true
+            'sidebar' => true,
+            'active' => $this->active
         ];
 
         $lineup = $game->lineup()->first();
@@ -166,7 +170,7 @@ class TryoutController extends GameController
         if (!$game) {
             return Redirect::back()->with('message', 'Schade. Dieses Spiel existiert wohl nicht...');
         } else {
-            return view('games.tryouts.edit')->with(['game' => $game, 'sidebar' => true, 'title' => 'Testspiel bearbeiten']);
+            return view('games.tryouts.edit')->with(['game' => $game, 'active' => $this->active, 'title' => 'Testspiel bearbeiten']);
         }
     }
 

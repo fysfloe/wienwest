@@ -48,13 +48,13 @@
         <div class="collapse navbar-collapse" id="app-navbar-collapse">
             <!-- Left Side Of Navbar -->
             <ul class="nav navbar-nav navbar-left">
-                <li><a href="{{ url('/home') }}"><i class="fa fa-home"></i></a></li>
-                <li><a href="{{ url('/league_games') }}">Meisterschaft</a></li>
-                <li><a href="{{ url('/cup_games') }}">Cupspiele</a></li>
-                <li><a href="{{ url('/tryouts') }}">Testspiele</a></li>
-                <li><a href="{{ url('/trainings') }}">Trainings</a></li>
-                <li><a href="{{ url('/players') }}">Spieler</a></li>
-                <li><a href="{{ url('/announcements') }}">Ankündigungen</a></li>
+                <li class="@if(isset($active) && $active == 'home') active @endif"><a href="{{ url('/home') }}"><i class="fa fa-home"></i></a></li>
+                <li class="@if(isset($active) && $active == 'league_games') active @endif"><a href="{{ url('/league_games') }}">Meisterschaft</a></li>
+                <li class="@if(isset($active) && $active == 'cup_games') active @endif"><a href="{{ url('/cup_games') }}">Cupspiele</a></li>
+                <li class="@if(isset($active) && $active == 'tryouts') active @endif"><a href="{{ url('/tryouts') }}">Testspiele</a></li>
+                <li class="@if(isset($active) && $active == 'trainings') active @endif"><a href="{{ url('/trainings') }}">Trainings</a></li>
+                <li class="@if(isset($active) && $active == 'players') active @endif"><a href="{{ url('/players') }}">Spieler</a></li>
+                <li class="@if(isset($active) && $active == 'announcements') active @endif"><a href="{{ url('/announcements') }}">Ankündigungen</a></li>
             </ul>
 
             <!-- Right Side Of Navbar -->
