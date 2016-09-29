@@ -91,6 +91,7 @@ class PlayerController extends Controller
         $players = Player::orderBy('number')->get();
 
         return view('players.index')->with([
+            'title' => 'Spieler',
             'players' => $players,
             'active' => $this->active
         ]);

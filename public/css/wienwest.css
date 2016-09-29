@@ -932,7 +932,8 @@ a.link-back:hover {
     }
 
     .games .flex,
-    .reply .flex {
+    .reply .flex,
+    .row.player.single.flex {
         display: block;
     }
 
@@ -1005,5 +1006,9 @@ a.link-back:hover {
         margin-bottom: 25px;
         border-bottom: 2px solid;
         padding-bottom: 25px;
+    }
+
+    .players .col-md-4.player {
+        margin-bottom: 10px;
     }
 }
