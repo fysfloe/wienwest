@@ -1,4 +1,7 @@
 <div class="players-in">
+    @if(Auth::user()->hasRole('admin'))
+        <a href="{{ route('league_games.manage_players_show', $game->id) }}">Spieler managen</a>
+    @endif
     <h4>Dabei ({{ count($players_in) }})</h4>
     @if(count($players_in) > 0)
         <ul class="participants">

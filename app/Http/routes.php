@@ -44,6 +44,8 @@ Route::group(['middleware' => ['web']], function () {
         Route::resource('trainings', 'TrainingController');
         Route::resource('replies', 'ReplyController');
         Route::resource('announcements', 'AnnouncementController');
+        Route::get('league_games/{id}/manage-players', 'LeagueGameController@managePlayersShow')->name('league_games.manage_players_show');
+        Route::post('league_games/{id}/manage-players', 'LeagueGameController@managePlayersUpdate')->name('league_games.manage_players_update');
     });
 });
 

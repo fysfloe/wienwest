@@ -12,6 +12,7 @@ use Auth;
 use Illuminate\Support\Facades\Redirect;
 use Validator;
 use Illuminate\Support\Facades\Input;
+use WienWest\Reply;
 
 class LeagueGameController extends GameController
 {
@@ -242,5 +243,60 @@ class LeagueGameController extends GameController
         }
 
         return Redirect::back()->withErrors($validator, 'league_game_edit_result')->withInput();
+    }
+
+    public function managePlayersShow($id)
+    {
+        $user = Auth::user();
+        if($user->hasRole('admin')) {
+
+            $players = Player::with(['league_games' => function ($query) use ($id) {
+                $query->where('league_game_id', '=', $id)->get();
+            }])->orderBy('surname')->get();
+
+            $players_replied = $players_no_reply = array();
+
+            foreach($players as $player) {
+                if($player->league_games->first()) {
+                    $players_replied[] = $player;
+                } else {
+                    $players_no_reply[] = $player;
+                }
+            }
+
+            return view('games.league-games.managePlayers')->with(['title' => 'Spieler managen', 'players_replied' => $players_replied, 'players_no_reply' => $players_no_reply, 'game_id' => $id]);
+        } else {
+            return Redirect::route('league_games.index')->with('message', 'Herst! Das darfst du nicht...');
+        }
+    }
+
+    public function managePlayersUpdate($id)
+    {
+        $user = Auth::user();
+        if($user->hasRole('admin')) {
+            foreach (Input::except('_token') as $key => $input) {
+                $player_id = explode('_', $key)[0];
+
+                if($player = Player::find($player_id)->whereHas('league_games', function ($q) use ($id) {
+                    $q->where('league_game_id', '=', $id);
+                })->find($player_id)) {
+                    $player->league_games()->updateExistingPivot($id, ['in' => $input]);
+                } else {
+                    if($input) {
+                        $player = Player::find($player_id);
+                        $game = LeagueGame::find($id);
+                        $game->participants()->attach($player, array('in' => $input));
+
+                        $reply = Reply::create(['in' => $input, 'user_id' => $player->user()->first()->id, 'repliable_id' => $id, 'repliable_type' => 'WienWest\LeagueGame']);
+
+                        $game->replies()->save($reply);
+                    }
+                }
+            }
+
+            return Redirect::back()->with('success', 'Änderungen übernommen.');
+        } else {
+            return Redirect::route('league_games.index')->with('message', 'Herst! Das darfst du nicht...');
+        }
     }
 }

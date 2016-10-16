@@ -21,15 +21,15 @@ class Player extends Model
     }
 
     public function league_games() {
-        return $this->belongsToMany('WienWest\LeagueGame');
+        return $this->belongsToMany('WienWest\LeagueGame')->withPivot('in');
     }
 
     public function cup_games() {
-        return $this->belongsToMany('WienWest\CupGame');
+        return $this->belongsToMany('WienWest\CupGame')->withPivot('in');
     }
 
     public function tryouts() {
-        return $this->belongsToMany('WienWest\Tryout');
+        return $this->belongsToMany('WienWest\Tryout')->withPivot('in');
     }
 
     public function trainings_past() {

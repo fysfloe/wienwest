@@ -79,6 +79,16 @@ jQuery(function($) {
         }
     });
 
+    var reply_buttons_admin = $('.admin-manage-players button');
+    reply_buttons_admin.click(function() {
+        $(this).parent().parent().find('.selected').removeClass('selected');
+        $(this).addClass('selected');
+
+        console.log($('input[name="' + $(this).data('player-id') + '_in"]'));
+
+        $('input[name="' + $(this).data('player-id') + '_in"]').val($(this).data('option'));
+    });
+
     var recurring = $('input[name="recurring"]');
     var recurring_times = $('div.recurring-times');
 

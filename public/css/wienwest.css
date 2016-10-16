@@ -620,6 +620,15 @@ nav.navbar.navbar-default {
     bottom: -11px;
 }
 
+.navbar-default .navbar-toggle:focus, .navbar-default .navbar-toggle:hover {
+    background: #d14859;
+}
+
+.navbar-default .navbar-toggle:focus .icon-bar,
+.navbar-default .navbar-toggle:hover .icon-bar {
+    background: white;
+}
+
 h1.page-title {
     position: absolute;
     top: -115px;
@@ -895,6 +904,10 @@ a.link-back {
 
 a.link-back:hover {
     color: #337ab7;
+}
+
+.admin-manage-players input[type="text"] {
+    display: none;
 }
 
 /* error 404 */
