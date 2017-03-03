@@ -44,15 +44,20 @@ class CupGameController extends GameController
      */
     public function index()
     {
-        $upcoming = CupGame::where('date', '>=', date('Y-m-d'))->orderBy('date', 'asc')->get();
-        $past = CupGame::where('date', '<', date('Y-m-d'))->orderBy('date', 'asc')->get();
+        $upcoming = CupGame::where('date', '>=', date('Y-m-d'))->with(['replies' => function ($query) {
+          $query->where('user_id', '=', Auth::user()->id)->get();
+        }])->orderBy('date', 'asc')->get();
+        $past = CupGame::where('date', '<', date('Y-m-d'))->with(['replies' => function ($query) {
+          $query->where('user_id', '=', Auth::user()->id)->get();
+        }])->orderBy('date', 'asc')->get();
 
         $view_variables = [
             'upcoming' => $upcoming,
             'past' => $past,
             'title' => 'Cupspiele',
             'sidebar' => true,
-            'active' => $this->active
+            'active' => $this->active,
+            'reply_legend' => true,
         ];
 
         if(count($upcoming) > 0) {

@@ -40,15 +40,20 @@ class TryoutController extends GameController
      */
     public function index()
     {
-        $upcoming = Tryout::where('date', '>=', date('Y-m-d'))->orderBy('date', 'desc')->get();
-        $past = Tryout::where('date', '<', date('Y-m-d'))->orderBy('date', 'desc')->get();
+        $upcoming = Tryout::where('date', '>=', date('Y-m-d'))->with(['replies' => function ($query) {
+          $query->where('user_id', '=', Auth::user()->id)->get();
+        }])->orderBy('date', 'asc')->get();
+        $past = Tryout::where('date', '<', date('Y-m-d'))->with(['replies' => function ($query) {
+          $query->where('user_id', '=', Auth::user()->id)->get();
+        }])->orderBy('date', 'asc')->get();
 
         $view_variables = [
             'upcoming' => $upcoming,
             'past' => $past,
             'title' => 'Testspiele',
             'sidebar' => true,
-            'active' => $this->active
+            'active' => $this->active,
+            'reply_legend' => true,
         ];
 
         if(count($upcoming) > 0) {

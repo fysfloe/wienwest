@@ -2,6 +2,8 @@
     @foreach($games as $game)
         <a href="{{ route('league_games.show', $game->id) }}">
             <li class="league-game row flex @if($game->home) home @else away @endif">
+              <div class="is-in <?php if($game->replies->first()) echo $game->replies->first()->in; else echo 'not-yet-replied' ?>"></div>
+
                 <div class="col-md-4">
                     <span class="date-big">{{ date_format(new DateTime($game->date), 'D, d.m.Y') }}</span><br>
                     <span class="start-time border-bottom"><strong><i class="fa fa-clock-o"></i> Anpfiff: </strong>{{ date_format(new DateTime($game->start_time), 'H:i') }}</span>

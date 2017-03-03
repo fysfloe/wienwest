@@ -44,15 +44,20 @@ class LeagueGameController extends GameController
      */
     public function index()
     {
-        $upcoming = LeagueGame::where('date', '>=', date('Y-m-d'))->orderBy('date', 'asc')->get();
-        $past = LeagueGame::where('date', '<', date('Y-m-d'))->orderBy('date', 'desc')->get();
+        $upcoming = LeagueGame::where('date', '>=', date('Y-m-d'))->with(['replies' => function ($query) {
+          $query->where('user_id', '=', Auth::user()->id)->get();
+        }])->orderBy('date', 'asc')->get();
+        $past = LeagueGame::where('date', '<', date('Y-m-d'))->with(['replies' => function ($query) {
+          $query->where('user_id', '=', Auth::user()->id)->get();
+        }])->orderBy('date', 'asc')->get();
 
         $view_variables = [
             'upcoming' => $upcoming,
             'past' => $past,
             'title' => 'Meisterschaftsspiele',
             'sidebar' => true,
-            'active' => $this->active
+            'active' => $this->active,
+            'reply_legend' => true,
         ];
 
         if(count($upcoming) > 0) {

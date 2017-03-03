@@ -40,3 +40,7 @@
     @if (isset($other_announcements))
         @include('sidebar.other_announcements')
     @endif
+
+    @if (isset($reply_legend))
+        @include('sidebar.reply-legend')
+    @endif

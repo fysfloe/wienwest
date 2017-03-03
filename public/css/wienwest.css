@@ -1,3 +1,10 @@
+/**
+in-color: #4cae4c
+maybe-color: #eea236
+out-color: #d43f3a
+*/
+
+
 /* general */
 body, html, .ql-editor {
     font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -255,10 +262,64 @@ div.players a,
     opacity: 0.6;
 }
 
-.cup-game > .col-md-4 span:not(:first-of-type),
-.league-game > .col-md-4 span:not(:first-of-type),
-.tryout > .col-md-4 span:not(:first-of-type),
-.training span:not(:first-of-type) {
+.cup-game .is-in,
+.league-game .is-in,
+.tryout .is-in,
+.training .is-in,
+.reply-legend .is-in {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  background: transparent;
+  z-index: 10;
+  border-radius: 100% 0 0;
+}
+
+.cup-game .is-in,
+.league-game .is-in,
+.tryout .is-in,
+.training .is-in {
+  position: absolute;
+  bottom: .25em;
+  right: .25em;
+}
+
+.cup-game .is-in.in,
+.league-game .is-in.in,
+.tryout .is-in.in,
+.training .is-in.in,
+.reply-legend .is-in.in {
+  background: #4cae4c;
+}
+
+.cup-game .is-in.maybe,
+.league-game .is-in.maybe,
+.tryout .is-in.maybe,
+.training .is-in.maybe,
+.reply-legend .is-in.maybe {
+  background: #eea236;
+}
+
+.cup-game .is-in.out,
+.league-game .is-in.out,
+.tryout .is-in.out,
+.training .is-in.out,
+.reply-legend .is-in.out {
+  background: #d43f3a;
+}
+
+.cup-game .is-in.not-yet-replied,
+.league-game .is-in.not-yet-replied,
+.tryout .is-in.not-yet-replied,
+.training .is-in.not-yet-replied,
+.reply-legend .is-in.not-yet-replied {
+  background: darkgrey;
+}
+
+.cup-game > .col-md-4 span:not(.date-big),
+.league-game > .col-md-4 span:not(.date-big),
+.tryout > .col-md-4 span:not(.date-big),
+.training span:not(.date-big) {
     width: 100%;
     display: block;
     padding: 10px 0;
@@ -743,6 +804,16 @@ footer textarea {
     font-size: 0.4em;
     font-weight: normal;
     color: black;
+}
+
+.reply-legend ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1em;
+}
+
+.reply-legend ul span {
+  margin-right: 0.25em;
 }
 
 /* lineup */

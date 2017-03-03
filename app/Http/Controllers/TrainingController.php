@@ -41,15 +41,20 @@ class TrainingController extends GameController
      */
     public function index()
     {
-        $upcoming = Training::where('date', '>=', date('Y-m-d'))->orderBy('date')->get();
-        $past = Training::where('date', '<', date('Y-m-d'))->get();
+        $upcoming = Training::where('date', '>=', date('Y-m-d'))->with(['replies' => function ($query) {
+          $query->where('user_id', '=', Auth::user()->id)->get();
+        }])->orderBy('date', 'asc')->get();
+        $past = Training::where('date', '<', date('Y-m-d'))->with(['replies' => function ($query) {
+          $query->where('user_id', '=', Auth::user()->id)->get();
+        }])->orderBy('date', 'asc')->get();
 
         $view_variables = [
             'upcoming' => $upcoming,
             'past' => $past,
             'title' => 'Trainings',
             'sidebar' => true,
-            'active' => $this->active
+            'active' => $this->active,
+            'reply_legend' => true,
         ];
 
         if(count($upcoming) > 0) {
