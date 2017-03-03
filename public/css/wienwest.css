@@ -7,6 +7,11 @@ b, strong {
     font-weight: 600;
 }
 
+.btn.full-width {
+  width: 100%;
+  margin-top: 2em;
+}
+
 .navbar-brand>img {
     width: 110px;
 }
@@ -110,7 +115,7 @@ div.big-number {
 }
 
 .summary .is-in.out {
-    background: #d9534f;;
+    background: #d9534f;
 }
 
 .summary .is-in.neutral {
@@ -908,6 +913,23 @@ a.link-back:hover {
 
 .admin-manage-players input[type="text"] {
     display: none;
+}
+
+.admin-manage-players .is-in {
+  margin: 0;
+  font-weight: bold;
+}
+
+.admin-manage-players .is-in.in {
+  color: #5cb85c;
+}
+
+.admin-manage-players .is-in.maybe {
+  color: #f0ad4e;
+}
+
+.admin-manage-players .is-in.out {
+  color: #d9534f;
 }
 
 /* error 404 */

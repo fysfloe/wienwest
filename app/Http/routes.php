@@ -46,6 +46,12 @@ Route::group(['middleware' => ['web']], function () {
         Route::resource('announcements', 'AnnouncementController');
         Route::get('league_games/{id}/manage-players', 'LeagueGameController@managePlayersShow')->name('league_games.manage_players_show');
         Route::post('league_games/{id}/manage-players', 'LeagueGameController@managePlayersUpdate')->name('league_games.manage_players_update');
+        Route::get('cup_games/{id}/manage-players', 'CupGameController@managePlayersShow')->name('cup_games.manage_players_show');
+        Route::post('cup_games/{id}/manage-players', 'CupGameController@managePlayersUpdate')->name('cup_games.manage_players_update');
+        Route::get('tryouts/{id}/manage-players', 'TryoutController@managePlayersShow')->name('tryouts.manage_players_show');
+        Route::post('tryouts/{id}/manage-players', 'TryoutController@managePlayersUpdate')->name('tryouts.manage_players_update');
+        Route::get('trainings/{id}/manage-players', 'TrainingController@managePlayersShow')->name('trainings.manage_players_show');
+        Route::post('trainings/{id}/manage-players', 'TrainingController@managePlayersUpdate')->name('trainings.manage_players_update');
     });
 });
 
