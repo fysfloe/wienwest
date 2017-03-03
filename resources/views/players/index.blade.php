@@ -3,6 +3,8 @@
 @section('content')
     <div class="players">
         <div class="row">
+          <p><strong>Derzeit sind {{ count($players) }} Spieler registriert.</strong></p>
+          <hr>
             <?php $i = 0; ?>
             @foreach($players as $player)
                 @if($i % 3 == 0 && $i != 0) </div> @endif
