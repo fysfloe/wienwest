@@ -9,7 +9,8 @@
         "laravel/framework": "5.2.*",
         "laravelcollective/html": "5.2.*",
         "spatie/laravel-permission": "^1.3",
-        "mews/purifier": "~2.0"
+        "mews/purifier": "~2.0",
+        "fbf/laravel-poll": "*"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

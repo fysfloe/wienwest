@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-	@if(Auth::user()->hasRole('admin')) <a class="btn btn-success new-announcement" href="{{ route('announcements.create') }}"><i class="fa fa-btn fa-plus-circle"></i> Neue Anknündigung erstellen</a> @endif
+	@if(Auth::user()->hasRole('admin')) <a class="btn btn-success new-announcement" href="{{ route('announcements.create') }}"><i class="fa fa-btn fa-plus-circle"></i> Neue Ankündigung erstellen</a> @endif
 
 	<ul class="announcements">
 		@foreach($announcements as $announcement)

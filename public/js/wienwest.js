@@ -231,8 +231,8 @@ jQuery(function($) {
         $('.ql-editor').html($('#text').val());
 
         quill.on('text-change', function() {
-            console.log(JSON.stringify($('.ql-editor').html()));
-            $('#text').val(JSON.stringify($('.ql-editor').html()));
+            console.log($('.ql-editor').html());
+            $('#text').val($('.ql-editor').html());
         });
     }
 
