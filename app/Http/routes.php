@@ -30,6 +30,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::group(['middleware' => ['auth']], function() {
         Route::get('/', 'HomeController@index');
         Route::get('/myProfile', 'PlayerController@myProfile')->name('myProfile');
+        Route::get('/calendar', 'CalendarController@index');
 
         Route::resource('players', 'PlayerController');
         Route::post('players/{id}/change-password', 'PlayerController@changePassword');
@@ -44,6 +45,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::resource('trainings', 'TrainingController');
         Route::resource('replies', 'ReplyController');
         Route::resource('announcements', 'AnnouncementController');
+
         Route::get('league_games/{id}/manage-players', 'LeagueGameController@managePlayersShow')->name('league_games.manage_players_show');
         Route::post('league_games/{id}/manage-players', 'LeagueGameController@managePlayersUpdate')->name('league_games.manage_players_update');
         Route::get('cup_games/{id}/manage-players', 'CupGameController@managePlayersShow')->name('cup_games.manage_players_show');
@@ -52,6 +54,9 @@ Route::group(['middleware' => ['web']], function () {
         Route::post('tryouts/{id}/manage-players', 'TryoutController@managePlayersUpdate')->name('tryouts.manage_players_update');
         Route::get('trainings/{id}/manage-players', 'TrainingController@managePlayersShow')->name('trainings.manage_players_show');
         Route::post('trainings/{id}/manage-players', 'TrainingController@managePlayersUpdate')->name('trainings.manage_players_update');
+
+        Route::resource('cal', 'CalendarController');
+        Route::get('oauth', 'CalendarController@oauth')->name('oauthCallback');
     });
 });
 

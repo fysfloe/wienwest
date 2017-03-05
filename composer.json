@@ -10,7 +10,7 @@
         "laravelcollective/html": "5.2.*",
         "spatie/laravel-permission": "^1.3",
         "mews/purifier": "~2.0",
-        "fbf/laravel-poll": "*"
+        "google/apiclient": "^2.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

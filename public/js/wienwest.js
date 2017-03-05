@@ -249,4 +249,8 @@ jQuery(function($) {
     if(input) {
         autocomplete = new google.maps.places.Autocomplete(input, options);
     }
+
+    $('#calendar').fullCalendar({
+      // put your options and callbacks here
+    });
 });

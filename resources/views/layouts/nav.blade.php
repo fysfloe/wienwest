@@ -24,6 +24,7 @@
         <li class="@if(isset($active) && $active == 'trainings') active @endif"><a href="{{ url('/trainings') }}">Trainings</a></li>
         <li class="@if(isset($active) && $active == 'players') active @endif"><a href="{{ url('/players') }}">Spieler</a></li>
         <li class="@if(isset($active) && $active == 'announcements') active @endif"><a href="{{ url('/announcements') }}">Ankündigungen</a></li>
+        <li class="@if(isset($active) && $active == 'calendar') active @endif"><a href="{{ url('/calendar') }}">Kalender</a></li>
     </ul>
 
     <!-- Right Side Of Navbar -->

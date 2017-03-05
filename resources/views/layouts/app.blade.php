@@ -17,6 +17,7 @@
 
     {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
     <link href="{{ asset('css/quill.snow.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('css/fullcalendar.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('css/wienwest.css') }}" rel="stylesheet" type="text/css">
 
     <style>
@@ -78,6 +79,7 @@
 <script src="{{ asset('js/bootstrap-switch.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('js/bootbox.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('js/quill.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('js/fullcalendar.min.js') }}" type="text/javascript"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDwOe625nUJQpEwYYdweX9N7WZHwvB70cw&libraries=places" type="text/javascript"></script>
 
 
