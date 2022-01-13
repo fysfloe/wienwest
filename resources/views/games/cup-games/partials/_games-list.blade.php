@@ -2,7 +2,7 @@
     @foreach($games as $game)
         <a href="{{ route('cup_games.show', $game->id) }}">
             <li class="cup-game row flex @if($game->home) home @else away @endif">
-              <div class="is-in <?php if($game->replies->first()) echo $game->replies->first()->in; else echo 'not-yet-replied' ?>"></div>
+              <div class="is-in <?php if($game->replies->last()) echo $game->replies->last()->in; else echo 'not-yet-replied' ?>"></div>
 
                 <div class="col-md-4">
                     <span class="date-big">{{ date_format(new DateTime($game->date), 'D, d.m.Y') }}</span><br>

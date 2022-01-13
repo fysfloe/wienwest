@@ -13,7 +13,7 @@
 			<a href="{{ route('trainings.show', $game->id) }}">
 				<li class="training col-md-4 flex">
 					<div class="col-md-12">
-						<div class="is-in <?php if($game->replies->last()) echo $game->replies->last()->in; else echo 'not-yet-replied' ?>"></div>
+						<div class="is-in <?php if($game->replies->first()) echo $game->replies->first()->in; else echo 'not-yet-replied' ?>"></div>
 
 						<span class="date-big">{{ date_format(new DateTime($game->date), 'D, d.m.Y') }}</span><br>
 						<span class="start-time border-bottom"><strong><i class="fa fa-clock-o"></i> Start: </strong>{{ date_format(new DateTime($game->start_time), 'H:i') }}</span>

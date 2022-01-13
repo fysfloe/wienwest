@@ -5,7 +5,7 @@
 <hr>
 
 <div class="row bench">
-    <div class="col-md-3">
+    <div class="col-md-2">
         @if(isset($positions->sub1))
             <li class="col-md-12 " data-id="{{ $positions->sub1->id }}">
 
@@ -26,7 +26,7 @@
             <span class="question-mark">?</span>
         @endif
     </div>
-    <div class="col-md-3">
+    <div class="col-md-2">
         @if(isset($positions->sub2))
             <li class="col-md-12 " data-id="{{ $positions->sub2->id }}">
 
@@ -47,7 +47,7 @@
             <span class="question-mark">?</span>
         @endif
     </div>
-    <div class="col-md-3">
+    <div class="col-md-2">
         @if(isset($positions->sub3))
             <li class="col-md-12 " data-id="{{ $positions->sub3->id }}">
 
@@ -68,7 +68,7 @@
             <span class="question-mark">?</span>
         @endif
     </div>
-    <div class="col-md-3">
+    <div class="col-md-2">
         @if(isset($positions->sub4))
             <li class="col-md-12 " data-id="{{ $positions->sub4->id }}">
 
@@ -81,6 +81,27 @@
                     </div>
                     <div class="name">
                         {{ $positions->sub4->firstname }} {{ $positions->sub4->surname }}
+                    </div>
+                </div>
+
+            </li>
+        @else
+            <span class="question-mark">?</span>
+        @endif
+    </div>
+    <div class="col-md-2">
+        @if(isset($positions->sub5))
+            <li class="col-md-12 " data-id="{{ $positions->sub5->id }}">
+
+                <div class="row">
+                    <div class="image">
+                        <div class="circular" style="background-image:url({{ asset('img/cartoons') . '/' . $positions->sub5->avatar . '.png' }})"></div>
+                    </div>
+                    <div class="number">
+                        <div class="big-number">{{ $positions->sub5->number }}</div>
+                    </div>
+                    <div class="name">
+                        {{ $positions->sub5->firstname }} {{ $positions->sub5->surname }}
                     </div>
                 </div>
 

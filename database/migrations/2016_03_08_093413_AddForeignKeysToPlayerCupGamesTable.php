@@ -28,8 +28,8 @@ class AddForeignKeysToPlayerCupGamesTable extends Migration
     {
         Schema::table('cup_game_player', function(Blueprint $table)
         {
-            $table->dropForeign('player_cup_game_player_id_foreign');
-            $table->dropForeign('player_cup_game_cup_game_id_foreign');
+            $table->dropForeign('cup_game_player_player_id_foreign');
+            $table->dropForeign('cup_game_player_cup_game_id_foreign');
         });
     }
 }
