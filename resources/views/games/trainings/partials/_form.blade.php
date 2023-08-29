@@ -20,7 +20,7 @@
 </div>
 <div class="form-group">
     {!! Form::label('location', 'Ort', array('class' => 'col-md-4 control-label')) !!}
-    <div class="col-md-6">{!! Form::text('location', 'ASV 13 Platz', array('class' => 'form-control', 'placeholder' => 'Tippst du ein...')) !!}</div>
+    <div class="col-md-6">{!! Form::text('location', 'Auf der Schmelz 10', array('class' => 'form-control', 'placeholder' => 'Tippst du ein...')) !!}</div>
 </div>
 <div class="form-group">
     {!! Form::label('title', 'Titel (optional)', array('class' => 'col-md-4 control-label')) !!}

@@ -21,7 +21,7 @@ jQuery(function($) {
     'state': true,
     'onSwitchChange': function() {
       if (home.prop('checked')) {
-        location.val('ASV 13 Platz');
+        location.val('Auf der Schmelz 10');
       } else {
         location.val('');
       }
